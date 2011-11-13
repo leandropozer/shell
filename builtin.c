@@ -6,7 +6,7 @@
 #include "main.h"
 #include "builtin.h"
 #include "parser.h"
-#include "lista.h"
+#include "list.h"
 
 int isBuiltIn(char * cmd)
 {

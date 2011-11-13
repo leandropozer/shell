@@ -9,7 +9,7 @@
 #include "main.h"
 #include "parser.h"
 #include "builtin.h"
-#include "lista.h"
+#include "list.h"
 
 void printPrompt(char* username, char* hostname)
 {

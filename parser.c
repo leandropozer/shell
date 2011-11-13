@@ -68,8 +68,10 @@ char* readline()
     c = getchar();
     while (c != '\n')
     {
-        input[i] = c;
-        i++;
+	if((c > 31) && (c < 127)) {
+        	input[i] = c;
+        	i++;
+	}
         c = getchar();
     }
     input[i] = '\0';
