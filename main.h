@@ -3,6 +3,7 @@
 char * userdir;
 
 int output_r;
+int output_r_append;
 int input_r;
 char * output_r_filename;
 char * input_r_filename;

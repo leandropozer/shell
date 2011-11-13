@@ -136,7 +136,10 @@ int main (int argc, char **argv)
                 {
                     if(output_r)
                     {
-                        fd_out = open(output_r_filename, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR, 0666);
+                        if(output_r_append)
+                            fd_out = open(output_r_filename, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR, 0666);
+                        else
+                            fd_out = open(output_r_filename, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR, 0666);
                         dup2(fd_out, 1);
                     }
                     if(input_r)
@@ -169,6 +172,7 @@ int main (int argc, char **argv)
                     isBackground = 0;
                     /*E espera ele terminar, caso seja um processo de foreground */
                     output_r = 0;
+                    output_r_append = 0;
                     input_r = 0;
                     if(!p->isBackground) {
                         child_handler_lock = 1;
