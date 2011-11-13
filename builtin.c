@@ -10,9 +10,9 @@
 
 int isBuiltIn(char * cmd)
 {
-    char * commands[] = {"cd", "history", "pwd", "exit", "jobs", "bg", "fg", "kill", "echo"};
+    char * commands[] = {"cd", "history", "pwd", "exit", "jobs", "bg", "fg", "kill", "echo", "about"};
     int i;
-    for (i = 0; i < 9; i++)
+    for (i = 0; i < 10; i++)
         if (strcmp(commands[i], cmd) == 0) return i;
     return -1;
 }
@@ -47,6 +47,9 @@ void callBuiltIn(int cmd_id, char ** arg)
         break;
     case 8:
         echo(arg);
+        break;
+    case 9:
+        printf("\nShell para trabalho de SSC0141.\nDesenvolvido por Lucas Lobosque e Leandro Pozer.");
         break;
     default:
         break;
