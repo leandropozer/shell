@@ -183,5 +183,5 @@ void echo(char ** cmds)
     {
         printf("%s ", cmds[i]);
     }
-    printf("\n");
+    if (cmd_len > 1) printf("\n");
 }
