@@ -129,7 +129,7 @@ int main (int argc, char **argv)
             add_history(cmdLine);
             cmd = parse(cmdLine);
             int cmd_id = isBuiltIn(cmd[0]);
-            if(cmd_id >= 0) callBuiltIn(cmd_id, cmd[1]);
+            if(cmd_id >= 0) callBuiltIn(cmd_id, cmd);
             else
             {
                 if((childPid = fork()) == 0)

@@ -31,25 +31,31 @@ int word_count(char * source)
 }
 
 char ** parse(char * cmdLine) {
-    int words = word_count(cmdLine);
+    cmd_len = word_count(cmdLine);
     char * cmds;
     int i;
-    parsed = (char**)malloc((words+1)*sizeof(char*));
+    parsed = (char**)malloc((cmd_len+1)*sizeof(char*));
     cmds = strtok(cmdLine, " ");
 
     for(i = 0; cmds != NULL; i++) {
         if((strcmp("&", cmds) == 0)) {
             isBackground = 1;
-            words--;
+            cmd_len--;
         }
         else if((strcmp("<", cmds) == 0)) {
             input_r = 1;
-            words--;
+            cmd_len--;
             input_r_filename = strtok(NULL, " ");
         }
         else if((strcmp(">", cmds) == 0)) {
             output_r = 1;
-            words--;
+            cmd_len--;
+            output_r_filename = strtok(NULL, " ");
+        }
+        else if((strcmp(">>", cmds) == 0)) {
+            output_r_append = 1;
+            output_r = 1;
+            cmd_len--;
             output_r_filename = strtok(NULL, " ");
         }
         else {
@@ -59,7 +65,7 @@ char ** parse(char * cmdLine) {
             cmds = strtok(NULL, " ");
 
     }
-    parsed[words] = (char *)0;
+    parsed[cmd_len] = (char *)0;
     //imprimir_argv(parsed, words);
     return parsed;
 }

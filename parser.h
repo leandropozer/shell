@@ -3,6 +3,7 @@
 
 char ** parsed;
 
+int cmd_len;
 void imprimir_argv(char ** matriz, int tamanho);
 int word_count(char * source);
 char * readline(void);

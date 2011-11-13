@@ -17,7 +17,7 @@ int isBuiltIn(char * cmd)
     return -1;
 }
 
-void callBuiltIn(int cmd_id, char * arg)
+void callBuiltIn(int cmd_id, char ** arg)
 {
     switch(cmd_id)
     {
@@ -37,13 +37,16 @@ void callBuiltIn(int cmd_id, char * arg)
         jobs();
         break;
     case 5:
-        bg(arg);
+        bg(arg[1]);
         break;
     case 6:
-        fg(arg);
+        fg(arg[1]);
         break;
     case 7:
-        kill_cmd(arg);
+        kill_cmd(arg[1]);
+        break;
+    case 8:
+        echo(arg);
         break;
     default:
         break;
@@ -160,5 +163,12 @@ void kill_cmd(char * arg)
         else n = strtol(arg, &end, 10);
             kill(n, SIGTERM);
     }
+}
 
+void echo(char ** cmds) {
+        int i;
+        for(i = 1; i < cmd_len; i++){
+            printf("%s ", cmds[i]);
+        }
+        printf("\n");
 }
