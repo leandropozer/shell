@@ -25,7 +25,7 @@ void callBuiltIn(int cmd_id, char ** arg)
         cd();
         break;
     case 1:
-        print_history();
+        print_history(arg[1]);
         break;
     case 2:
         pwd();
@@ -49,7 +49,7 @@ void callBuiltIn(int cmd_id, char ** arg)
         echo(arg);
         break;
     case 9:
-        printf("\nShell para trabalho de SSC0141.\nDesenvolvido por Lucas Lobosque e Leandro Pozer.");
+        printf("Shell para trabalho de SSC0141.\nDesenvolvido por Lucas Lobosque e Leandro Pozer.\n");
         break;
     default:
         break;
@@ -80,12 +80,15 @@ void add_history(char * cmd)
     }
 }
 
-void print_history()
+void print_history(char * arg)
 {
+    int n = 9999;
+    char * end;
+    if (arg != NULL) n = strtol(arg, &end, 10);
     struct node *tmp = history;
     int i = 1;
     printf("%d %s\n", i, tmp->cmd);
-    while(tmp->next != NULL)
+    while(tmp->next != NULL && (i < n))
     {
         i++;
         tmp = tmp->next;
@@ -122,13 +125,15 @@ void jobs()
 
 void bg(char * arg)
 {
-    if(!ListIsEmpty(childs)) {
+    if(!ListIsEmpty(childs))
+    {
         char * end;
         int n;
         pid_t pid;
         if(arg == NULL)
             pid = ListLastStoppedToBg(childs);
-        else {
+        else
+        {
             n = strtol(arg, &end, 10);
             pid = ListToBg(childs, n);
         }
@@ -138,14 +143,16 @@ void bg(char * arg)
 
 void fg(char * arg)
 {
-    if(!ListIsEmpty(childs)) {
+    if(!ListIsEmpty(childs))
+    {
         char * end;
         int n;
         pid_t pid, pidfg;
         int status;
         if(arg == NULL)
             pid = ListLastToFg(childs);
-        else {
+        else
+        {
             n = strtol(arg, &end, 10);
             pid = ListToFg(childs, n);
         }
@@ -158,20 +165,23 @@ void fg(char * arg)
 
 void kill_cmd(char * arg)
 {
-    if(!ListIsEmpty(childs)) {
+    if(!ListIsEmpty(childs))
+    {
         char * end;
         int n;
         NODE * aux = childs->last;
         if(arg == NULL) n = aux->item->pid;
         else n = strtol(arg, &end, 10);
-            kill(n, SIGTERM);
+        kill(n, SIGTERM);
     }
 }
 
-void echo(char ** cmds) {
-        int i;
-        for(i = 1; i < cmd_len; i++){
-            printf("%s ", cmds[i]);
-        }
-        printf("\n");
+void echo(char ** cmds)
+{
+    int i;
+    for(i = 1; i < cmd_len; i++)
+    {
+        printf("%s ", cmds[i]);
+    }
+    printf("\n");
 }
