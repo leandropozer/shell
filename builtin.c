@@ -124,10 +124,8 @@ void bg(char * arg)
             pid = ListLastStoppedToBg(childs);
         else {
             n = strtol(arg, &end, 10);
-            printf("n: %d", n);
             pid = ListToBg(childs, n);
         }
-        printf("pid escolhido: %d", pid);
         kill(pid, SIGCONT);
     }
 }

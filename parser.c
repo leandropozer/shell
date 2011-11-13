@@ -42,6 +42,16 @@ char ** parse(char * cmdLine) {
             isBackground = 1;
             words--;
         }
+        else if((strcmp("<", cmds) == 0)) {
+            input_r = 1;
+            words--;
+            input_r_filename = strtok(NULL, " ");
+        }
+        else if((strcmp(">", cmds) == 0)) {
+            output_r = 1;
+            words--;
+            output_r_filename = strtok(NULL, " ");
+        }
         else {
             parsed[i] = malloc(strlen(cmds));
             strcpy(parsed[i], cmds);
@@ -68,10 +78,10 @@ char* readline()
     c = getchar();
     while (c != '\n')
     {
-	if((c > 31) && (c < 127)) {
-        	input[i] = c;
-        	i++;
-	}
+        if((c > 31) && (c < 172)) {
+            input[i] = c;
+            i++;
+        }
         c = getchar();
     }
     input[i] = '\0';

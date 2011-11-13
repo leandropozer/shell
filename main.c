@@ -64,7 +64,8 @@ void sigtstop_handler(int signum) {
 int main (int argc, char **argv)
 {
 
-
+    int fd_in;
+    int fd_out;
     char * cmdLine;
     char ** cmd;
     size_t len = 256;
@@ -135,13 +136,13 @@ int main (int argc, char **argv)
                 {
                     if(output_r)
                     {
-                        fd_out = open(output_r_filename, O_WRONLY, 0666);
-                        dup2(fd_out, 0);
+                        fd_out = open(output_r_filename, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR, 0666);
+                        dup2(fd_out, 1);
                     }
                     if(input_r)
                     {
                         fd_in = open(input_r_filename, O_RDONLY, 0666);
-                        dup2(fd_in, 1);
+                        dup2(fd_in, 0);
                     }
                     fgChildPid = childPid;
                     int i = execvp(cmd[0], cmd);
@@ -167,6 +168,8 @@ int main (int argc, char **argv)
                     ListInsert(childs, p);
                     isBackground = 0;
                     /*E espera ele terminar, caso seja um processo de foreground */
+                    output_r = 0;
+                    input_r = 0;
                     if(!p->isBackground) {
                         child_handler_lock = 1;
                         pidfg = waitpid(childPid, &status, WUNTRACED);
