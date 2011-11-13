@@ -17,17 +17,18 @@ void printPrompt(char* username, char* hostname)
     getcwd(path, 256);
     if(strcmp(path, userdir) == 0)
         printf("%s@%s:~$ ", username, hostname);
+    else if(strstr(path, userdir))
+        printf("%s@%s:~%s$ ", username, hostname, path + strlen(userdir));
     else
         printf("%s@%s:%s$ ", username, hostname, path);
-}
-
-void execute(char ** cmd)
-{
 
 }
+
 
 void termination_handler (int signum)
 {
+    printf("\n");
+    printPrompt(username, hostname);
     if (fgChildPid != 0)
     {
         kill(fgChildPid, signum);
@@ -47,10 +48,17 @@ void child_handler(int signum)
 }
 
 void sigtstop_handler(int signum) {
-    ITEM *item;
-    item = malloc(sizeof(ITEM));
-    ListGetRunningProcess(childs, item);
-    kill(childPid, SIGSTOP);
+        printf("\n");
+    if(!ListIsEmpty(childs)) {
+        ITEM *item;
+        item = malloc(sizeof(ITEM));
+        ListGetRunningProcess(childs, item);
+        if (childPid >= 0) kill(childPid, SIGSTOP);
+        else printPrompt(username, hostname);
+
+    }
+    else
+        printPrompt(username, hostname);
 }
 
 int main (int argc, char **argv)
@@ -58,9 +66,7 @@ int main (int argc, char **argv)
 
 
     char * cmdLine;
-    char * username;
     char ** cmd;
-    char hostname[256];
     size_t len = 256;
     struct sigaction new_action, old_action;
 
@@ -115,7 +121,7 @@ int main (int argc, char **argv)
     {
         printPrompt(username, hostname);
         output_r = input_r = 0;
-        rewind(stdin);
+        //if (tcflush(ttyDevice, TCIFLUSH) == 0)
         cmdLine = readline();
         if(strcmp(cmdLine, "") != 0)
         {
