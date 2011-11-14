@@ -38,14 +38,10 @@ void termination_handler (int signum)
 
 void child_handler(int signum)
 {
-    if(child_handler_lock == 0)
-    {
-        int status;
-        pid_t pid;
-        pid = waitpid(0, &status, WNOHANG|WUNTRACED);
-        if((pid >= 0) && (WIFSTOPPED(status) == 0)) ListRemoveByPid(childs, pid);
-    }
-
+    int status;
+    pid_t pid;
+    pid = waitpid(0, &status, WNOHANG|WUNTRACED);
+    if((pid >= 0) && (WIFSTOPPED(status) == 0)) ListRemoveByPid(childs, pid);
 }
 
 void sigtstop_handler(int signum)
@@ -195,8 +191,8 @@ int main (int argc, char **argv)
                     {
                         sigprocmask(SIG_BLOCK, &chldMask, NULL);
                         pidfg = waitpid(aux->cmd->pid, &status, WUNTRACED);
-                        sigprocmask(SIG_UNBLOCK, &chldMask, NULL);
                         if ((pidfg >= 0) && (WIFSTOPPED(status) == 0)) ListRemoveByPid(childs, aux->cmd->pid);
+                        sigprocmask(SIG_UNBLOCK, &chldMask, NULL);
                     }
                 }
                 aux = aux->next;

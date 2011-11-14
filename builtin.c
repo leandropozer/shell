@@ -149,6 +149,9 @@ void fg(char * arg)
         int n;
         pid_t pid, pidfg;
         int status;
+        sigset_t chldMask;
+        sigemptyset (&chldMask);
+        sigaddset(&chldMask, SIGCHLD);
         if(arg == NULL)
             pid = ListLastToFg(childs);
         else
@@ -157,11 +160,11 @@ void fg(char * arg)
             pid = ListToFg(childs, n);
         }
         kill(pid, SIGCONT);
-        printf("pid achado: %d\n", pid);
-        child_handler_lock = 1;
+        sigprocmask(SIG_BLOCK, &chldMask, NULL);
         pidfg = waitpid(pid, &status, WUNTRACED);
-        child_handler_lock = 0;
         if ((pidfg >= 0) && (WIFSTOPPED(status) == 0)) ListRemoveByPid(childs, childPid);
+        sigprocmask(SIG_UNBLOCK, &chldMask, NULL);
+
     }
 }
 
