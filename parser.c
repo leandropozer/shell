@@ -30,44 +30,61 @@ int word_count(char * source)
     return words;
 }
 
-char ** parse(char * cmdLine) {
+void getCmds(LIST *cmdList, char *cmdLine) {
+    char *cmds;
+    char * saveptr;
+    int i;
+    int pos = 0;
+    cmds = strtok_r(cmdLine, "|", &saveptr);
+    while(cmds != NULL) {
+        COMMAND * cmd = malloc(sizeof(COMMAND));
+        initCommand(cmd);
+        parse(cmds, cmd);
+        ListInsert(cmdList, NULL, cmd);
+        cmds = strtok_r(NULL, "|", &saveptr);
+    }
+}
+
+
+void parse(char * cmdLine, COMMAND * cmd) {
     cmd_len = word_count(cmdLine);
     char * cmds;
     int i;
-    parsed = (char**)malloc((cmd_len+1)*sizeof(char*));
-    cmds = strtok(cmdLine, " ");
+    char *saveptr;
+    cmd->args = (char**)malloc((cmd_len+1)*sizeof(char*));
+    cmds = strtok_r(cmdLine, " ", &saveptr);
 
     for(i = 0; cmds != NULL; i++) {
         if((strcmp("&", cmds) == 0)) {
-            isBackground = 1;
+            cmd->isBackground = 1;
             cmd_len--;
         }
         else if((strcmp("<", cmds) == 0)) {
-            input_r = 1;
+            cmd->input_r = 1;
             cmd_len--;
-            input_r_filename = strtok(NULL, " ");
+            cmd->input_r_filename = strtok_r(NULL, " ", &saveptr);
         }
         else if((strcmp(">", cmds) == 0)) {
-            output_r = 1;
+            cmd->output_r = 1;
             cmd_len--;
-            output_r_filename = strtok(NULL, " ");
+            cmd->output_r_filename = strtok_r(NULL, " ", &saveptr);
         }
         else if((strcmp(">>", cmds) == 0)) {
-            output_r_append = 1;
-            output_r = 1;
+            cmd->output_r_append = 1;
+            cmd->output_r = 1;
             cmd_len--;
-            output_r_filename = strtok(NULL, " ");
+            cmd->output_r_filename = strtok_r(NULL, " ", &saveptr);
         }
         else {
-            parsed[i] = malloc(strlen(cmds));
-            strcpy(parsed[i], cmds);
+            cmd->args[i] = malloc(strlen(cmds));
+            strcpy(cmd->args[i], cmds);
         }
-            cmds = strtok(NULL, " ");
+            cmds = strtok_r(NULL, " ", &saveptr);
 
     }
-    parsed[cmd_len] = (char *)0;
+    cmd->args[cmd_len] = (char *)0;
+    cmd->size = cmd_len;
     //imprimir_argv(parsed, words);
-    return parsed;
 }
 
 void free_parse() {

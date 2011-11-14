@@ -9,6 +9,16 @@ void ListCreate(LIST *list)
     list->last = NULL;
 }
 
+void initCommand(COMMAND *cmd) {
+    cmd->isBackground = 0;
+    cmd->input_r = 0;
+    cmd->output_r = 0;
+    cmd->output_r_append = 0;
+    cmd->size = 0;
+    cmd->id = -1;
+    cmd->pid = -1;
+}
+
 int ListIsEmpty(LIST *list)
 {
     if(list->first == NULL) return 1;
@@ -16,13 +26,14 @@ int ListIsEmpty(LIST *list)
 }
 
 
-int ListInsert(LIST *list, ITEM *item)
+int ListInsert(LIST *list, PROCESS *proc, COMMAND *cmd)
 {
     NODE *newNode = (NODE *)malloc(sizeof(NODE));
 
     if (newNode != NULL)
     {
-        newNode->item = item;
+        newNode->proc = proc;
+        newNode->cmd = cmd;
         newNode->next = NULL;
         newNode->prev = list->last;
 
@@ -37,14 +48,14 @@ int ListInsert(LIST *list, ITEM *item)
     return 0;
 }
 
-int ListGetByPid(LIST *list, pid_t pid, ITEM *item)
+int ListGetByPid(LIST *list, pid_t pid, PROCESS *proc)
 {
     NODE *aux = list->first;
     while (aux != NULL)
     {
-        if (aux->item->pid == pid)
+        if (aux->proc->pid == pid)
         {
-            item = aux->item;
+            proc = aux->proc;
             return 1;
         }
         aux = aux->next;
@@ -58,9 +69,9 @@ int ListStopRunningProcessByPid(LIST *list, pid_t pid)
     NODE *aux = list->first;
     while (aux != NULL)
     {
-        if((strcmp(aux->item->status, "Running") == 0) && aux->item->pid == pid)
+        if((strcmp(aux->proc->status, "Running") == 0) && aux->proc->pid == pid)
         {
-            strcpy(aux->item->status, "Stopped");
+            strcpy(aux->proc->status, "Stopped");
             return 1;
         }
         aux = aux->next;
@@ -76,7 +87,7 @@ int ListRemoveByPid(LIST *list, pid_t pid)
         int i;
         NODE *aux = list->first;
 
-        while(aux->item->pid != pid)
+        while(aux->proc->pid != pid)
         {
             if (aux != list->last)
                 aux = aux->next;
@@ -93,7 +104,7 @@ int ListRemoveByPid(LIST *list, pid_t pid)
         else
             aux->next->prev = aux->prev;
 
-        free(aux->item);
+        free(aux->proc);
         free(aux);
 
         return 1;
@@ -107,11 +118,11 @@ pid_t ListLastStoppedToBg(LIST *list)
         NODE *aux = list->last;
         while (aux != NULL)
         {
-            if(strcmp(aux->item->status, "Stopped") == 0)
+            if(strcmp(aux->proc->status, "Stopped") == 0)
             {
-                aux->item->isBackground = 1;
-                strcpy(aux->item->status, "Running");
-                return aux->item->pid;
+                aux->proc->isBackground = 1;
+                strcpy(aux->proc->status, "Running");
+                return aux->proc->pid;
             }
             aux = aux->prev;
         }
@@ -125,11 +136,11 @@ pid_t ListToBg(LIST *list, pid_t pid)
         NODE *aux = list->last;
         while (aux != NULL)
         {
-            if(aux->item->pid == pid)
+            if(aux->proc->pid == pid)
             {
-                aux->item->isBackground = 1;
-                strcpy(aux->item->status, "Running");
-                return aux->item->pid;
+                aux->proc->isBackground = 1;
+                strcpy(aux->proc->status, "Running");
+                return aux->proc->pid;
             }
             aux = aux->prev;
         }
@@ -143,9 +154,9 @@ pid_t ListLastToFg(LIST *list)
         NODE *aux = list->last;
         if (aux != NULL)
         {
-            aux->item->isBackground = 0;
-            strcpy(aux->item->status, "Running");
-            return aux->item->pid;
+            aux->proc->isBackground = 0;
+            strcpy(aux->proc->status, "Running");
+            return aux->proc->pid;
         }
         aux = aux->prev;
     }
@@ -158,11 +169,11 @@ pid_t ListToFg(LIST *list, pid_t pid)
         NODE *aux = list->last;
         while (aux != NULL)
         {
-            if(aux->item->pid == pid)
+            if(aux->proc->pid == pid)
             {
-                aux->item->isBackground = 0;
-                strcpy(aux->item->status, "Running");
-                return aux->item->pid;
+                aux->proc->isBackground = 0;
+                strcpy(aux->proc->status, "Running");
+                return aux->proc->pid;
             }
             aux = aux->prev;
         }
@@ -170,4 +181,18 @@ pid_t ListToFg(LIST *list, pid_t pid)
     return -1;
 }
 
+void ListPurgeCmds(LIST *list) {
+    if(!ListIsEmpty(list)) {
+        NODE *aux = list->first;
+        while(aux != NULL) {
+            int i;
+            for(i = 0; i < aux->cmd->size; i++);
+                free(aux->cmd->args[i]);
+            free(aux->cmd->args);
+            free(aux->cmd);
+        aux = aux->next;
+        }
+        ListCreate(list);
+    }
+}
 

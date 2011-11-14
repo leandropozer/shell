@@ -38,7 +38,8 @@ void termination_handler (int signum)
 
 void child_handler(int signum)
 {
-    if(child_handler_lock == 0) {
+    if(child_handler_lock == 0)
+    {
         int status;
         pid_t pid;
         pid = waitpid(0, &status, WNOHANG|WUNTRACED);
@@ -47,13 +48,16 @@ void child_handler(int signum)
 
 }
 
-void sigtstop_handler(int signum) {
-        printf("childPid: %d\n", childPid);
-        printf("\n");
-    if(!ListIsEmpty(childs)) {
-        if (childPid >= 0) {
-            ListStopRunningProcessByPid(childs, childPid);
-            kill(childPid, SIGSTOP);
+void sigtstop_handler(int signum)
+{
+    printf("childPid: %d\n", childs->last->proc->pid);
+    printf("\n");
+    if(!ListIsEmpty(childs))
+    {
+        if (childs->last->proc->pid >= 0)
+        {
+            ListStopRunningProcessByPid(childs, childs->last->proc->pid);
+            kill(childs->last->proc->pid, SIGSTOP);
         }
         else printPrompt(username, hostname);
 
@@ -71,13 +75,15 @@ int main (int argc, char **argv)
     sigemptyset (&chldMask);
     sigaddset(&chldMask, SIGCHLD);
     char * cmdLine;
-    char ** cmd;
+    LIST * cmdList;
     size_t len = 256;
     struct sigaction new_action, old_action;
 
     /* Inicializa a lista que guarda os processos que rodam em background */
     childs = malloc(sizeof(LIST));
     ListCreate(childs);
+    cmdList = malloc(sizeof(LIST));
+    ListCreate(cmdList);
     /* Inicializa a variável que guarda o ID do processo atual do foreground */
     fgChildPid = 0;
     child_handler_lock = 0;
@@ -131,66 +137,75 @@ int main (int argc, char **argv)
         if(strcmp(cmdLine, "") != 0)
         {
             add_history(cmdLine);
-            cmd = parse(cmdLine);
-            int cmd_id = isBuiltIn(cmd[0]);
-            if(cmd_id >= 0) callBuiltIn(cmd_id, cmd);
-            else
+            getCmds(cmdList, cmdLine);
+            NODE *aux = cmdList->first;
+            while (aux != NULL)
             {
-                if((childPid = fork()) == 0)
-                {
-                    if(output_r)
+
+                aux->cmd->id = isBuiltIn(aux->cmd->args[0]);
+                if(aux->cmd->id >= 0) callBuiltIn(aux->cmd->id, aux->cmd->args);
+                else {
+                    aux->cmd->pid = fork();
+                    if(aux->cmd->pid == 0)
                     {
-                        if(output_r_append)
-                            fd_out = open(output_r_filename, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR, 0666);
-                        else
-                            fd_out = open(output_r_filename, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR, 0666);
-                        dup2(fd_out, 1);
-                    }
-                    if(input_r)
-                    {
-                        fd_in = open(input_r_filename, O_RDONLY, 0666);
-                        dup2(fd_in, 0);
-                    }
-                    fgChildPid = childPid;
-                    signal(SIGTSTP, SIG_IGN);
-                    int i = execvp(cmd[0], cmd);
-                    if (output_r) close(fd_out);
-                    if (input_r) close(fd_in);
-                    if(i < 0)
-                    {
-                        printf("%s: command not found\n", cmd[0]);
-                        exit(101);
+                        if(aux->cmd->output_r)
+                        {
+                            if(aux->cmd->output_r_append)
+                                fd_out = open(aux->cmd->output_r_filename, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR, 0666);
+                            else
+                                fd_out = open(aux->cmd->output_r_filename, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR, 0666);
+                            dup2(fd_out, 1);
+                        }
+                        if(aux->cmd->input_r)
+                        {
+                            fd_in = open(aux->cmd->input_r_filename, O_RDONLY, 0666);
+                            dup2(fd_in, 0);
+                        }
+                        fgChildPid = aux->cmd->pid;
+                        signal(SIGTSTP, SIG_IGN);
+                        int i = execvp(aux->cmd->args[0], aux->cmd->args);
+                        if (aux->cmd->output_r) close(fd_out);
+                        if (aux->cmd->input_r) close(fd_in);
+                        if(i < 0)
+                        {
+                            printf("%s: command not found\n", aux->cmd->args[0]);
+                            exit(101);
+                        }
                     }
                 }
-                else
-                {
-                    /*Após criar o processo filho, o pai insere em uma lista ligada o novo processo */
+                aux = aux->next;
+            }
+            aux = cmdList->first;
+            while (aux != NULL)
+            {            /*Após criar o processo filho, o pai insere em uma lista ligada o novo processo */
+                if(aux->cmd->id == -1) {
                     int status;
                     pid_t pidfg;
-                    ITEM * p;
-                    p = malloc(sizeof(ITEM));
-                    p->pid = childPid;
-                    p->isBackground = isBackground;
+                    PROCESS * p;
+                    p = malloc(sizeof(PROCESS));
+                    p->pid = aux->cmd->pid;
+                    p->isBackground = aux->cmd->isBackground;
                     strcpy(p->status, "Running");
                     strcpy(p->command, cmdLine);
                     sigprocmask(SIG_BLOCK, &chldMask, NULL);
-                    ListInsert(childs, p);
+                    ListInsert(childs, p, NULL);
                     sigprocmask(SIG_UNBLOCK, &chldMask, NULL);
-                    isBackground = 0;
                     /*E espera ele terminar, caso seja um processo de foreground */
-                    output_r = 0;
-                    output_r_append = 0;
-                    input_r = 0;
-                    if(!p->isBackground) {
+                    if(!p->isBackground)
+                    {
                         sigprocmask(SIG_BLOCK, &chldMask, NULL);
-                        pidfg = waitpid(childPid, &status, WUNTRACED);
+                        pidfg = waitpid(aux->cmd->pid, &status, WUNTRACED);
                         sigprocmask(SIG_UNBLOCK, &chldMask, NULL);
-                        if ((pidfg >= 0) && (WIFSTOPPED(status) == 0)) ListRemoveByPid(childs, childPid);
+                        if ((pidfg >= 0) && (WIFSTOPPED(status) == 0)) ListRemoveByPid(childs, aux->cmd->pid);
                     }
                 }
+                aux = aux->next;
             }
-            free_parse();
-            free(cmdLine);
         }
+    ListPurgeCmds(cmdList);
+    free(cmdLine);
     }
+
 }
+
+

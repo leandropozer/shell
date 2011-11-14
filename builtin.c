@@ -114,11 +114,11 @@ void pwd()
 void jobs()
 {
     NODE *aux = childs->first;
-    ITEM * item;
+    PROCESS * proc;
     while (aux != NULL)
     {
-        item = aux->item;
-        printf("[%d] %s %s\n",item->pid, item->status, item->command);
+        proc = aux->proc;
+        printf("[%d] %s %s\n",proc->pid, proc->status, proc->command);
         aux = aux->next;
     }
 }
@@ -156,6 +156,8 @@ void fg(char * arg)
             n = strtol(arg, &end, 10);
             pid = ListToFg(childs, n);
         }
+        kill(pid, SIGCONT);
+        printf("pid achado: %d\n", pid);
         child_handler_lock = 1;
         pidfg = waitpid(pid, &status, WUNTRACED);
         child_handler_lock = 0;
@@ -170,7 +172,7 @@ void kill_cmd(char * arg)
         char * end;
         int n;
         NODE * aux = childs->last;
-        if(arg == NULL) n = aux->item->pid;
+        if(arg == NULL) n = aux->proc->pid;
         else n = strtol(arg, &end, 10);
         kill(n, SIGTERM);
     }
