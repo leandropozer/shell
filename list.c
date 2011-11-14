@@ -53,15 +53,14 @@ int ListGetByPid(LIST *list, pid_t pid, ITEM *item)
     return 0;
 }
 
-int ListGetRunningProcess(LIST *list, ITEM *item)
+int ListStopRunningProcessByPid(LIST *list, pid_t pid)
 {
     NODE *aux = list->first;
     while (aux != NULL)
     {
-        if(strcmp(aux->item->status, "Running") == 0)
+        if((strcmp(aux->item->status, "Running") == 0) && aux->item->pid == pid)
         {
             strcpy(aux->item->status, "Stopped");
-            item = aux->item;
             return 1;
         }
         aux = aux->next;

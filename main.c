@@ -48,12 +48,13 @@ void child_handler(int signum)
 }
 
 void sigtstop_handler(int signum) {
+        printf("childPid: %d\n", childPid);
         printf("\n");
     if(!ListIsEmpty(childs)) {
-        ITEM *item;
-        item = malloc(sizeof(ITEM));
-        ListGetRunningProcess(childs, item);
-        if (childPid >= 0) kill(childPid, SIGSTOP);
+        if (childPid >= 0) {
+            ListStopRunningProcessByPid(childs, childPid);
+            kill(childPid, SIGSTOP);
+        }
         else printPrompt(username, hostname);
 
     }
@@ -66,6 +67,9 @@ int main (int argc, char **argv)
 
     int fd_in;
     int fd_out;
+    sigset_t chldMask;
+    sigemptyset (&chldMask);
+    sigaddset(&chldMask, SIGCHLD);
     char * cmdLine;
     char ** cmd;
     size_t len = 256;
@@ -148,6 +152,7 @@ int main (int argc, char **argv)
                         dup2(fd_in, 0);
                     }
                     fgChildPid = childPid;
+                    signal(SIGTSTP, SIG_IGN);
                     int i = execvp(cmd[0], cmd);
                     if (output_r) close(fd_out);
                     if (input_r) close(fd_in);
@@ -168,16 +173,18 @@ int main (int argc, char **argv)
                     p->isBackground = isBackground;
                     strcpy(p->status, "Running");
                     strcpy(p->command, cmdLine);
+                    sigprocmask(SIG_BLOCK, &chldMask, NULL);
                     ListInsert(childs, p);
+                    sigprocmask(SIG_UNBLOCK, &chldMask, NULL);
                     isBackground = 0;
                     /*E espera ele terminar, caso seja um processo de foreground */
                     output_r = 0;
                     output_r_append = 0;
                     input_r = 0;
                     if(!p->isBackground) {
-                        child_handler_lock = 1;
+                        sigprocmask(SIG_BLOCK, &chldMask, NULL);
                         pidfg = waitpid(childPid, &status, WUNTRACED);
-                        child_handler_lock = 0;
+                        sigprocmask(SIG_UNBLOCK, &chldMask, NULL);
                         if ((pidfg >= 0) && (WIFSTOPPED(status) == 0)) ListRemoveByPid(childs, childPid);
                     }
                 }
