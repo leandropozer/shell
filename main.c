@@ -46,7 +46,6 @@ void child_handler(int signum)
 
 void sigtstop_handler(int signum)
 {
-    printf("childPid: %d\n", childs->last->proc->pid);
     printf("\n");
     if(!ListIsEmpty(childs))
     {
@@ -137,13 +136,37 @@ int main (int argc, char **argv)
             NODE *aux = cmdList->first;
             while (aux != NULL)
             {
-
+                if (aux->prev != NULL || aux->next != NULL) aux->cmd->isBackground = 1;
                 aux->cmd->id = isBuiltIn(aux->cmd->args[0]);
                 if(aux->cmd->id >= 0) callBuiltIn(aux->cmd->id, aux->cmd->args);
                 else {
+                    if(aux->next != NULL)
+                        pipe2(aux->cmd->pipe, O_CLOEXEC );
                     aux->cmd->pid = fork();
                     if(aux->cmd->pid == 0)
                     {
+                        //sleep(60);
+                        if(aux->prev != NULL || aux->next != NULL) {
+                            if(aux->prev == NULL) {
+                                dup2(aux->cmd->pipe[1], 1);
+                                close(aux->cmd->pipe[0]);
+                                //close(aux->next->cmd->pipe[0]);
+                                //close(aux->next->cmd->pipe[1]);
+                            }
+                            else if(aux->next == NULL) {
+                                //dup2(aux->cmd->pipe[0], 0);
+                                dup2(aux->prev->cmd->pipe[0], 0);
+                                close(aux->prev->cmd->pipe[1]);
+                                //close(aux->prev->prev->cmd->pipe[0]);
+                                //close(aux->prev->prev->cmd->pipe[1]);
+                            }
+                            else {
+                                dup2(aux->prev->cmd->pipe[0], 0);
+                                dup2(aux->cmd->pipe[1], 1);
+                                close(aux->prev->cmd->pipe[1]);
+                                close(aux->cmd->pipe[0]);
+                            }
+                        }
                         if(aux->cmd->output_r)
                         {
                             if(aux->cmd->output_r_append)
@@ -165,7 +188,7 @@ int main (int argc, char **argv)
                         if(i < 0)
                         {
                             printf("%s: command not found\n", aux->cmd->args[0]);
-                            exit(101);
+                            exit(0);
                         }
                     }
                 }
@@ -173,7 +196,9 @@ int main (int argc, char **argv)
             }
             aux = cmdList->first;
             while (aux != NULL)
-            {            /*Após criar o processo filho, o pai insere em uma lista ligada o novo processo */
+            {
+                close(aux->cmd->pipe[0]);
+                close(aux->cmd->pipe[1]);/*Após criar o processo filho, o pai insere em uma lista ligada o novo processo */
                 if(aux->cmd->id == -1) {
                     int status;
                     pid_t pidfg;
@@ -182,7 +207,7 @@ int main (int argc, char **argv)
                     p->pid = aux->cmd->pid;
                     p->isBackground = aux->cmd->isBackground;
                     strcpy(p->status, "Running");
-                    strcpy(p->command, cmdLine);
+                    strcpy(p->command, aux->cmd->args[0]);
                     sigprocmask(SIG_BLOCK, &chldMask, NULL);
                     ListInsert(childs, p, NULL);
                     sigprocmask(SIG_UNBLOCK, &chldMask, NULL);

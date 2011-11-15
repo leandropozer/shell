@@ -17,6 +17,8 @@ void initCommand(COMMAND *cmd) {
     cmd->size = 0;
     cmd->id = -1;
     cmd->pid = -1;
+    cmd->pipe[0] = -1;
+    cmd->pipe[1] = -1;
 }
 
 int ListIsEmpty(LIST *list)

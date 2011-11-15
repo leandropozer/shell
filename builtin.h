@@ -14,7 +14,7 @@ int isBuiltIn(char * cmd);
 void callBuiltIn(int cmd_id, char ** arg);
 void add_history(char * cmd);
 void print_history(char * arg);
-void cd();
+void cd(char * arg);
 void pwd();
 void jobs();
 void bg(char * arg);

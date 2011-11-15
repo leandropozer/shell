@@ -19,6 +19,7 @@ typedef struct
     char * output_r_filename;
     char * input_r_filename;
     int id;
+    int pipe[2];
     pid_t pid;
 } COMMAND;
 

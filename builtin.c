@@ -22,7 +22,7 @@ void callBuiltIn(int cmd_id, char ** arg)
     switch(cmd_id)
     {
     case 0:
-        cd();
+        cd(arg[1]);
         break;
     case 1:
         print_history(arg[1]);
@@ -96,12 +96,12 @@ void print_history(char * arg)
     }
 }
 
-void cd()
+void cd(char * arg)
 {
     int error;
-    if(parsed[1] == NULL) error = chdir(userdir);
-    else error = chdir(parsed[1]);
-    if (error ==  -1) printf("bash: cd: %s: %s\n", parsed[1],strerror(errno));
+    if(arg == NULL) error = chdir(userdir);
+    else error = chdir(arg);
+    if (error ==  -1) printf("bash: cd: %s: %s\n", arg,strerror(errno));
 }
 
 void pwd()
