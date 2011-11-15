@@ -76,7 +76,7 @@ void parse(char * cmdLine, COMMAND * cmd) {
             cmd->output_r_filename = strtok_r(NULL, " ", &saveptr);
         }
         else {
-            cmd->args[i] = malloc(strlen(cmds));
+            cmd->args[i] = malloc((strlen(cmds)+1)*sizeof(char));
             strcpy(cmd->args[i], cmds);
         }
             cmds = strtok_r(NULL, " ", &saveptr);

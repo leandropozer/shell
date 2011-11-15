@@ -62,7 +62,7 @@ void add_history(char * cmd)
     struct node *prev = history;
     if(history->cmd == NULL)
     {
-        history->cmd = malloc(strlen(cmd) + 1);
+        history->cmd = malloc((strlen(cmd) + 1)*sizeof(char));
         strcpy(history->cmd, cmd);
     }
     else
@@ -73,7 +73,7 @@ void add_history(char * cmd)
             tmp = tmp->next;
         }
         tmp = malloc(sizeof(struct node));
-        tmp->cmd = malloc(strlen(cmd));
+        tmp->cmd = malloc((strlen(cmd) + 1)*sizeof(char));
         tmp->next = NULL;
         strcpy(tmp->cmd, cmd);
         prev->next = tmp;

@@ -28,11 +28,14 @@ void printPrompt(char* username, char* hostname)
 void termination_handler (int signum)
 {
     printf("\n");
-    printPrompt(username, hostname);
-    if (fgChildPid != 0)
+    NODE *aux = childs->first;
+    while(aux != NULL)
     {
-        kill(fgChildPid, signum);
-        fgChildPid = 0;
+        if (!aux->proc->isBackground) {
+            kill(-aux->proc->pid, signum);
+            break;
+        }
+        aux = aux->next;
     }
 }
 
@@ -185,7 +188,6 @@ int main (int argc, char **argv)
                             fd_in = open(aux->cmd->input_r_filename, O_RDONLY, 0666);
                             dup2(fd_in, 0);
                         }
-                        fgChildPid = aux->cmd->pid;
                         signal(SIGTSTP, SIG_IGN);
                         int i = execvp(aux->cmd->args[0], aux->cmd->args);
                         if (aux->cmd->output_r) close(fd_out);
@@ -200,6 +202,13 @@ int main (int argc, char **argv)
                 aux = aux->next;
             }
             aux = cmdList->first;
+            while (aux->next != NULL)
+            {
+                close(aux->cmd->pipe[0]);
+                close(aux->cmd->pipe[1]);
+                aux = aux->next;
+            }
+            aux = cmdList->first;
             int count = 0;
             while (aux != NULL)
             {
@@ -207,8 +216,6 @@ int main (int argc, char **argv)
                 {
                     if(aux->cmd->isBackground == 0) count++;
                     setpgid(aux->cmd->pid, cmdList->first->cmd->pid);
-                    close(aux->cmd->pipe[0]);
-                    close(aux->cmd->pipe[1]);/*Após criar o processo filho, o pai insere em uma lista ligada o novo processo */
                     int status;
                     pid_t pidfg;
                     PROCESS * p;
