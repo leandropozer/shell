@@ -75,9 +75,7 @@ int main (int argc, char **argv)
     sigaddset(&chldMask, SIGCHLD);
     char * cmdLine;
     LIST * cmdList;
-    size_t len = 256;
     struct sigaction new_action, old_action;
-
     /* Inicializa a lista que guarda os processos que rodam em background */
     childs = malloc(sizeof(LIST));
     ListCreate(childs);
@@ -120,10 +118,9 @@ int main (int argc, char **argv)
     history = malloc(sizeof(struct node));
     history->cmd = NULL;
     history->next = NULL;
-
     /* Pega o nome do usuario atual e da máquina */
     username = getlogin();
-    gethostname(hostname, len);
+    gethostname(hostname, 256);
     asprintf(&userdir, "/home/%s", username);
     /* Coloca o diretório do usuário como diretório inicial */
     chdir(userdir);
@@ -140,7 +137,6 @@ int main (int argc, char **argv)
             NODE *aux = cmdList->first;
             while (aux != NULL)
             {
-                //if (aux->prev != NULL || aux->next != NULL) aux->cmd->isBackground = 1;
                 aux->cmd->id = isBuiltIn(aux->cmd->args[0]);
                 if(aux->cmd->id >= 0) callBuiltIn(aux->cmd->id, aux->cmd->args);
                 else
@@ -150,30 +146,23 @@ int main (int argc, char **argv)
                     aux->cmd->pid = fork();
                     if(aux->cmd->pid == 0)
                     {
-                        //sleep(60);
                         if(aux->prev != NULL || aux->next != NULL)
                         {
                             if(aux->prev == NULL)
-                            {
                                 dup2(aux->cmd->pipe[1], 1);
-                                close(aux->cmd->pipe[0]);
-                                //close(aux->next->cmd->pipe[0]);
-                                //close(aux->next->cmd->pipe[1]);
-                            }
                             else if(aux->next == NULL)
-                            {
-                                //dup2(aux->cmd->pipe[0], 0);
                                 dup2(aux->prev->cmd->pipe[0], 0);
-                                close(aux->prev->cmd->pipe[1]);
-                                //close(aux->prev->prev->cmd->pipe[0]);
-                                //close(aux->prev->prev->cmd->pipe[1]);
-                            }
                             else
                             {
                                 dup2(aux->prev->cmd->pipe[0], 0);
                                 dup2(aux->cmd->pipe[1], 1);
-                                close(aux->prev->cmd->pipe[1]);
-                                close(aux->cmd->pipe[0]);
+                            }
+                            NODE * aux2 = cmdList->first;
+                            while(aux2->next != NULL)
+                            {
+                                close(aux2->cmd->pipe[0]);
+                                close(aux2->cmd->pipe[1]);
+                                aux2 = aux2->next;
                             }
                         }
                         if(aux->cmd->output_r)
@@ -226,11 +215,6 @@ int main (int argc, char **argv)
                     sigprocmask(SIG_BLOCK, &chldMask, NULL);
                     ListInsert(childs, p, NULL);
                     sigprocmask(SIG_UNBLOCK, &chldMask, NULL);
-                    /*E espera ele terminar, caso seja um processo de foreground */
-                    //if(!p->isBackground)
-                    //{
-
-                    //printPrompt(username, hostname);
                 }
                 aux = aux->next;
             }
@@ -243,13 +227,12 @@ int main (int argc, char **argv)
                 if ((pidfg >= 0) && (WIFSTOPPED(status) == 0)) ListRemoveByPid(childs, pidfg);
             }
             sigprocmask(SIG_UNBLOCK, &chldMask, NULL);
-
-            //}
         }
         ListPurgeCmds(cmdList);
         free(cmdLine);
     }
 }
+
 
 
 
