@@ -5,13 +5,14 @@
 #include "parser.h"
 #include "main.h"
 
-void imprimir_argv(char ** matriz, int tamanho){
-        int i = 0;
-        for(i = 0; i <= tamanho; i++){
-            printf("%s ", matriz[i]);
-        }
-
+void imprimir_argv(char ** matriz, int tamanho)
+{
+    int i = 0;
+    for(i = 0; i <= tamanho; i++)
+    {
+        printf("%s ", matriz[i]);
     }
+}
 
 int word_count(char * source)
 {
@@ -30,13 +31,13 @@ int word_count(char * source)
     return words;
 }
 
-void getCmds(LIST *cmdList, char *cmdLine) {
+void getCmds(LIST *cmdList, char *cmdLine)
+{
     char *cmds;
     char * saveptr;
-    int i;
-    int pos = 0;
     cmds = strtok_r(cmdLine, "|", &saveptr);
-    while(cmds != NULL) {
+    while(cmds != NULL)
+    {
         COMMAND * cmd = malloc(sizeof(COMMAND));
         initCommand(cmd);
         parse(cmds, cmd);
@@ -46,7 +47,8 @@ void getCmds(LIST *cmdList, char *cmdLine) {
 }
 
 
-void parse(char * cmdLine, COMMAND * cmd) {
+void parse(char * cmdLine, COMMAND * cmd)
+{
     cmd_len = word_count(cmdLine);
     char * cmds;
     int i;
@@ -54,32 +56,38 @@ void parse(char * cmdLine, COMMAND * cmd) {
     cmd->args = (char**)malloc((cmd_len+1)*sizeof(char*));
     cmds = strtok_r(cmdLine, " ", &saveptr);
 
-    for(i = 0; cmds != NULL; i++) {
-        if((strcmp("&", cmds) == 0)) {
+    for(i = 0; cmds != NULL; i++)
+    {
+        if((strcmp("&", cmds) == 0))
+        {
             cmd->isBackground = 1;
             cmd_len--;
         }
-        else if((strcmp("<", cmds) == 0)) {
+        else if((strcmp("<", cmds) == 0))
+        {
             cmd->input_r = 1;
             cmd_len--;
             cmd->input_r_filename = strtok_r(NULL, " ", &saveptr);
         }
-        else if((strcmp(">", cmds) == 0)) {
+        else if((strcmp(">", cmds) == 0))
+        {
             cmd->output_r = 1;
             cmd_len--;
             cmd->output_r_filename = strtok_r(NULL, " ", &saveptr);
         }
-        else if((strcmp(">>", cmds) == 0)) {
+        else if((strcmp(">>", cmds) == 0))
+        {
             cmd->output_r_append = 1;
             cmd->output_r = 1;
             cmd_len--;
             cmd->output_r_filename = strtok_r(NULL, " ", &saveptr);
         }
-        else {
+        else
+        {
             cmd->args[i] = malloc((strlen(cmds)+1)*sizeof(char));
             strcpy(cmd->args[i], cmds);
         }
-            cmds = strtok_r(NULL, " ", &saveptr);
+        cmds = strtok_r(NULL, " ", &saveptr);
 
     }
     cmd->args[cmd_len] = (char *)0;
@@ -87,7 +95,8 @@ void parse(char * cmdLine, COMMAND * cmd) {
     //imprimir_argv(parsed, words);
 }
 
-void free_parse() {
+void free_parse()
+{
     int i;
     for(i = 0; parsed[i] != NULL; i++) free(parsed[i]);
     free(parsed);
@@ -101,7 +110,8 @@ char* readline()
     c = getchar();
     while (c != '\n')
     {
-        if((c > 31) && (c < 172)) {
+        if((c > 31) && (c < 172))
+        {
             input[i] = c;
             i++;
         }

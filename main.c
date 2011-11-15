@@ -1,7 +1,7 @@
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <errno.h>
 #include <string.h>
 #include <sys/wait.h>
 #include <fcntl.h>
@@ -31,7 +31,8 @@ void termination_handler (int signum)
     NODE *aux = childs->first;
     while(aux != NULL)
     {
-        if (!aux->proc->isBackground) {
+        if (!aux->proc->isBackground)
+        {
             kill(-aux->proc->pid, signum);
             break;
         }
@@ -216,8 +217,6 @@ int main (int argc, char **argv)
                 {
                     if(aux->cmd->isBackground == 0) count++;
                     setpgid(aux->cmd->pid, cmdList->first->cmd->pid);
-                    int status;
-                    pid_t pidfg;
                     PROCESS * p;
                     p = malloc(sizeof(PROCESS));
                     p->pid = aux->cmd->pid;

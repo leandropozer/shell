@@ -9,7 +9,8 @@ void ListCreate(LIST *list)
     list->last = NULL;
 }
 
-void initCommand(COMMAND *cmd) {
+void initCommand(COMMAND *cmd)
+{
     cmd->isBackground = 0;
     cmd->input_r = 0;
     cmd->output_r = 0;
@@ -86,7 +87,6 @@ int ListRemoveByPid(LIST *list, pid_t pid)
 {
     if (!ListIsEmpty(list))
     {
-        int i;
         NODE *aux = list->first;
 
         while(aux->proc->pid != pid)
@@ -116,7 +116,8 @@ int ListRemoveByPid(LIST *list, pid_t pid)
 
 pid_t ListLastStoppedToBg(LIST *list)
 {
-    if(!ListIsEmpty(list)) {
+    if(!ListIsEmpty(list))
+    {
         NODE *aux = list->last;
         while (aux != NULL)
         {
@@ -134,7 +135,8 @@ pid_t ListLastStoppedToBg(LIST *list)
 
 pid_t ListToBg(LIST *list, pid_t pid)
 {
-    if(!ListIsEmpty(list)) {
+    if(!ListIsEmpty(list))
+    {
         NODE *aux = list->last;
         while (aux != NULL)
         {
@@ -152,7 +154,8 @@ pid_t ListToBg(LIST *list, pid_t pid)
 
 pid_t ListLastToFg(LIST *list)
 {
-    if(!ListIsEmpty(list)) {
+    if(!ListIsEmpty(list))
+    {
         NODE *aux = list->last;
         if (aux != NULL)
         {
@@ -167,7 +170,8 @@ pid_t ListLastToFg(LIST *list)
 
 pid_t ListToFg(LIST *list, pid_t pid)
 {
-    if(!ListIsEmpty(list)) {
+    if(!ListIsEmpty(list))
+    {
         NODE *aux = list->last;
         while (aux != NULL)
         {
@@ -183,16 +187,19 @@ pid_t ListToFg(LIST *list, pid_t pid)
     return -1;
 }
 
-void ListPurgeCmds(LIST *list) {
-    if(!ListIsEmpty(list)) {
+void ListPurgeCmds(LIST *list)
+{
+    if(!ListIsEmpty(list))
+    {
         NODE *aux = list->first;
-        while(aux != NULL) {
+        while(aux != NULL)
+        {
             int i;
             for(i = 0; i < aux->cmd->size; i++);
-                free(aux->cmd->args[i]);
+            free(aux->cmd->args[i]);
             free(aux->cmd->args);
             free(aux->cmd);
-        aux = aux->next;
+            aux = aux->next;
         }
         ListCreate(list);
     }

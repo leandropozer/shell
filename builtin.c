@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
-#include <signal.h>
+#include <wait.h>
+#include <unistd.h>
 #include "main.h"
 #include "builtin.h"
 #include "parser.h"
