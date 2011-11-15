@@ -50,48 +50,48 @@ void getCmds(LIST *cmdList, char *cmdLine)
 void parse(char * cmdLine, COMMAND * cmd)
 {
     cmd_len = word_count(cmdLine);
+    int before = cmd_len;
     char * cmds;
-    int i;
+    int j, i = 0;
     char *saveptr;
     cmd->args = (char**)malloc((cmd_len+1)*sizeof(char*));
     cmds = strtok_r(cmdLine, " ", &saveptr);
-
-    for(i = 0; cmds != NULL; i++)
+    while(cmds != NULL)
     {
         if((strcmp("&", cmds) == 0))
         {
             cmd->isBackground = 1;
-            cmd_len--;
         }
         else if((strcmp("<", cmds) == 0))
         {
             cmd->input_r = 1;
-            cmd_len--;
             cmd->input_r_filename = strtok_r(NULL, " ", &saveptr);
         }
         else if((strcmp(">", cmds) == 0))
         {
             cmd->output_r = 1;
-            cmd_len--;
             cmd->output_r_filename = strtok_r(NULL, " ", &saveptr);
         }
         else if((strcmp(">>", cmds) == 0))
         {
             cmd->output_r_append = 1;
             cmd->output_r = 1;
-            cmd_len--;
             cmd->output_r_filename = strtok_r(NULL, " ", &saveptr);
         }
         else
         {
             cmd->args[i] = malloc((strlen(cmds)+1)*sizeof(char));
             strcpy(cmd->args[i], cmds);
+            i++;
         }
         cmds = strtok_r(NULL, " ", &saveptr);
 
     }
-    cmd->args[cmd_len] = (char *)0;
-    cmd->size = cmd_len;
+    cmd->args[i] = (char *)0;
+    for(j = i+1; j <= cmd_len ; j++)
+        free(cmd->args[j]);
+
+    cmd->size = i;
     //imprimir_argv(parsed, words);
 }
 
