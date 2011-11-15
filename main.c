@@ -73,8 +73,7 @@ int main (int argc, char **argv)
     sigset_t chldMask;
     sigemptyset (&chldMask);
     sigaddset(&chldMask, SIGCHLD);
-    char * cmdLine;
-    LIST * cmdList;
+
     struct sigaction new_action, old_action;
     /* Inicializa a lista que guarda os processos que rodam em background */
     childs = malloc(sizeof(LIST));

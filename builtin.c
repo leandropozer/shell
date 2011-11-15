@@ -32,6 +32,8 @@ void callBuiltIn(int cmd_id, char ** arg)
         pwd();
         break;
     case 3:
+        ListPurgeCmds(cmdList);
+        free(cmdLine);
         exit(0);
         break;
     case 4:
