@@ -65,9 +65,15 @@ void sigtstop_handler(int signum)
         printPrompt(username, hostname);
 }
 
+void free_memory() {
+    free(childs);
+    free(cmdList);
+    free_history();
+
+}
+
 int main (int argc, char **argv)
 {
-
     int fd_in;
     int fd_out;
     sigset_t chldMask;
@@ -230,6 +236,8 @@ int main (int argc, char **argv)
         ListPurgeCmds(cmdList);
         free(cmdLine);
     }
+    free_history();
+    return 0;
 }
 
 

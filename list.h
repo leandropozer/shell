@@ -37,10 +37,53 @@ typedef struct
     NODE *last;
 } LIST;
 
+
+/** @brief Inicializa a lista para uso posterior.
+*   @param list - Ponteiro para lista a ser inicializada.
+*   @return Void.
+*/
 void ListCreate(LIST *list);
+/** @brief Inicializa um comando (estrutura) para
+*          uso posterior.
+*   @param list - Ponteiro para comando (estrutura)
+*          a ser inicializada.
+*   @return Void.
+*/
 void initCommand(COMMAND *cmd);
+/** @brief Verifica se uma lista está vazia.
+*   @param list - Ponteiro para a lista.
+*   @return Se a lista está vazia
+*           Caso contrário.
+*   @retval 1 - Sim.
+*   @retval 0 - Não.
+*/
 int ListIsEmpty(LIST *list);
+/** @brief Insere um processo e/ou um comando na lista.
+*          Na prática, deve ser usada uma lista para
+*          comandos e outra para processos.
+*          Elas só estão na mesma estrutura para evitar
+*          repetição de código.
+*          Caso esteja inserindo em uma lista de processos,
+*          o argumento cmd deve ser NULL.
+*          Caso esteja inserindo em uma lista de comandos,
+*          o argumento proc deve ser NULL.
+*   @param list - Ponteiro para a lista.
+*   @param proc - Ponteiro para processo (estrutura).
+*   @param cmd - Ponteiro para comando (estrutura).
+*   @return Se foi possível inserir
+*   @retval 1 - Sim.
+*   @retval 0 - Não.
+*/
 int ListInsert(LIST *list, PROCESS *proc, COMMAND *cmd);
+/** @brief Retorna um processo (estrutura) pelo seu id.
+*   @param list - Ponteiro para a lista.
+*   @param pid - Id do processo a ser procurado.
+*   @param proc - Ponteiro que apontará para lista
+*   @return Se a lista está vazia
+*           Caso contrário.
+*   @retval 1 - Sim.
+*   @retval 0 - Não.
+*/
 int ListGetByPid(LIST *list, pid_t pid, PROCESS *proc);
 int ListStopRunningProcessByPid(LIST *list,pid_t pid);
 int ListRemoveByPid(LIST *list, pid_t pid);

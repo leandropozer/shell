@@ -195,7 +195,7 @@ void ListPurgeCmds(LIST *list)
         while(aux != NULL)
         {
             int i;
-            for(i = 0; i < aux->cmd->size; i++);
+            for(i = 0; i < aux->cmd->size; i++)
                 free(aux->cmd->args[i]);
             free(aux->cmd->args);
             free(aux->cmd);

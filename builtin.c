@@ -34,6 +34,7 @@ void callBuiltIn(int cmd_id, char ** arg)
     case 3:
         ListPurgeCmds(cmdList);
         free(cmdLine);
+        free_memory();
         exit(0);
         break;
     case 4:
@@ -85,7 +86,7 @@ void add_history(char * cmd)
 
 void print_history(char * arg)
 {
-    int n = 9999;
+    int n = 10;
     char * end;
     if (arg != NULL) n = strtol(arg, &end, 10);
     struct node *tmp = history;
@@ -97,6 +98,16 @@ void print_history(char * arg)
         tmp = tmp->next;
         printf("%d %s\n", i, tmp->cmd);
     }
+}
+
+void free_history() {
+    struct node *tmp = history;
+    while(tmp != NULL)
+    {
+        free(tmp->cmd);
+        tmp = tmp->next;
+    }
+    free(history);
 }
 
 void cd(char * arg)

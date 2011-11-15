@@ -19,4 +19,6 @@ char hostname[256];
 char * cmdLine;
 LIST * cmdList;
 
+void free_memory();
+
 #endif
