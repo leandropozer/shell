@@ -40,7 +40,7 @@ void child_handler(int signum)
 {
     int status;
     pid_t pid;
-    pid = waitpid(0, &status, WNOHANG|WUNTRACED);
+    pid = waitpid(-1, &status, WNOHANG|WUNTRACED);
     if((pid >= 0) && (WIFSTOPPED(status) == 0)) ListRemoveByPid(childs, pid);
 }
 
@@ -136,31 +136,36 @@ int main (int argc, char **argv)
             NODE *aux = cmdList->first;
             while (aux != NULL)
             {
-                if (aux->prev != NULL || aux->next != NULL) aux->cmd->isBackground = 1;
+                //if (aux->prev != NULL || aux->next != NULL) aux->cmd->isBackground = 1;
                 aux->cmd->id = isBuiltIn(aux->cmd->args[0]);
                 if(aux->cmd->id >= 0) callBuiltIn(aux->cmd->id, aux->cmd->args);
-                else {
+                else
+                {
                     if(aux->next != NULL)
                         pipe2(aux->cmd->pipe, O_CLOEXEC );
                     aux->cmd->pid = fork();
                     if(aux->cmd->pid == 0)
                     {
                         //sleep(60);
-                        if(aux->prev != NULL || aux->next != NULL) {
-                            if(aux->prev == NULL) {
+                        if(aux->prev != NULL || aux->next != NULL)
+                        {
+                            if(aux->prev == NULL)
+                            {
                                 dup2(aux->cmd->pipe[1], 1);
                                 close(aux->cmd->pipe[0]);
                                 //close(aux->next->cmd->pipe[0]);
                                 //close(aux->next->cmd->pipe[1]);
                             }
-                            else if(aux->next == NULL) {
+                            else if(aux->next == NULL)
+                            {
                                 //dup2(aux->cmd->pipe[0], 0);
                                 dup2(aux->prev->cmd->pipe[0], 0);
                                 close(aux->prev->cmd->pipe[1]);
                                 //close(aux->prev->prev->cmd->pipe[0]);
                                 //close(aux->prev->prev->cmd->pipe[1]);
                             }
-                            else {
+                            else
+                            {
                                 dup2(aux->prev->cmd->pipe[0], 0);
                                 dup2(aux->cmd->pipe[1], 1);
                                 close(aux->prev->cmd->pipe[1]);
@@ -195,11 +200,15 @@ int main (int argc, char **argv)
                 aux = aux->next;
             }
             aux = cmdList->first;
+            int count = 0;
             while (aux != NULL)
             {
-                close(aux->cmd->pipe[0]);
-                close(aux->cmd->pipe[1]);/*Após criar o processo filho, o pai insere em uma lista ligada o novo processo */
-                if(aux->cmd->id == -1) {
+                if(isBuiltIn(aux->cmd->args[0]) == -1)
+                {
+                    if(aux->cmd->isBackground == 0) count++;
+                    setpgid(aux->cmd->pid, cmdList->first->cmd->pid);
+                    close(aux->cmd->pipe[0]);
+                    close(aux->cmd->pipe[1]);/*Após criar o processo filho, o pai insere em uma lista ligada o novo processo */
                     int status;
                     pid_t pidfg;
                     PROCESS * p;
@@ -212,21 +221,30 @@ int main (int argc, char **argv)
                     ListInsert(childs, p, NULL);
                     sigprocmask(SIG_UNBLOCK, &chldMask, NULL);
                     /*E espera ele terminar, caso seja um processo de foreground */
-                    if(!p->isBackground)
-                    {
-                        sigprocmask(SIG_BLOCK, &chldMask, NULL);
-                        pidfg = waitpid(aux->cmd->pid, &status, WUNTRACED);
-                        if ((pidfg >= 0) && (WIFSTOPPED(status) == 0)) ListRemoveByPid(childs, aux->cmd->pid);
-                        sigprocmask(SIG_UNBLOCK, &chldMask, NULL);
-                    }
+                    //if(!p->isBackground)
+                    //{
+
+                    //printPrompt(username, hostname);
                 }
                 aux = aux->next;
             }
-        }
-    ListPurgeCmds(cmdList);
-    free(cmdLine);
-    }
+            int i;
+            int status;
+            sigprocmask(SIG_BLOCK, &chldMask, NULL);
+            for (i = 0; i < count; i++)
+            {
+                pid_t pidfg = waitpid(-cmdList->first->cmd->pid, &status, WUNTRACED);
+                if ((pidfg >= 0) && (WIFSTOPPED(status) == 0)) ListRemoveByPid(childs, pidfg);
+            }
+            sigprocmask(SIG_UNBLOCK, &chldMask, NULL);
 
+            //}
+        }
+        ListPurgeCmds(cmdList);
+        free(cmdLine);
+    }
 }
+
+
 
 
