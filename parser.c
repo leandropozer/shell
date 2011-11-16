@@ -49,11 +49,11 @@ void getCmds(LIST *cmdList, char *cmdLine)
 
 void parse(char * cmdLine, COMMAND * cmd)
 {
-    cmd_len = word_count(cmdLine);
-    int before = cmd_len;
     char * cmds;
     int i = 0;
     char *saveptr;
+    int cmd_len;
+    cmd_len = word_count(cmdLine);
     cmd->args = (char**)malloc((cmd_len+1)*sizeof(char*));
     cmds = strtok_r(cmdLine, " ", &saveptr);
     while(cmds != NULL)
@@ -92,13 +92,6 @@ void parse(char * cmdLine, COMMAND * cmd)
     cmd->size = i;
 }
 
-void free_parse()
-{
-    int i;
-    for(i = 0; parsed[i] != NULL; i++) free(parsed[i]);
-    free(parsed);
-}
-
 char* readline()
 {
     char * input = (char *)malloc(sizeof(char) * 100);
@@ -107,7 +100,7 @@ char* readline()
     c = getchar();
     while (c != '\n')
     {
-        if((c > 31) && (c < 172))
+        if(c > 31) //Com esta condição, evitamos lixo na entrada.
         {
             input[i] = c;
             i++;

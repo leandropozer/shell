@@ -18,15 +18,15 @@ int isBuiltIn(char * cmd)
     return -1;
 }
 
-void callBuiltIn(int cmd_id, char ** arg)
+void callBuiltIn(int cmd_id, COMMAND *cmd)
 {
     switch(cmd_id)
     {
     case 0:
-        cd(arg[1]);
+        cd(cmd->args[1]);
         break;
     case 1:
-        print_history(arg[1]);
+        print_history(cmd->args[1]);
         break;
     case 2:
         pwd();
@@ -41,16 +41,16 @@ void callBuiltIn(int cmd_id, char ** arg)
         jobs();
         break;
     case 5:
-        bg(arg[1]);
+        bg(cmd->args[1]);
         break;
     case 6:
-        fg(arg[1]);
+        fg(cmd->args[1]);
         break;
     case 7:
-        kill_cmd(arg[1]);
+        kill_cmd(cmd->args[1]);
         break;
     case 8:
-        echo(arg);
+        echo(cmd);
         break;
     case 9:
         printf("Shell para trabalho de SSC0141.\nDesenvolvido por Lucas Lobosque e Leandro Pozer.\n");
@@ -62,8 +62,8 @@ void callBuiltIn(int cmd_id, char ** arg)
 
 void add_history(char * cmd)
 {
-    struct node *tmp = history->next;
-    struct node *prev = history;
+    HISTORY *tmp = history->next;
+    HISTORY *prev = history;
     if(history->cmd == NULL)
     {
         history->cmd = malloc((strlen(cmd) + 1)*sizeof(char));
@@ -76,7 +76,7 @@ void add_history(char * cmd)
             prev = tmp;
             tmp = tmp->next;
         }
-        tmp = malloc(sizeof(struct node));
+        tmp = malloc(sizeof(HISTORY));
         tmp->cmd = malloc((strlen(cmd) + 1)*sizeof(char));
         tmp->next = NULL;
         strcpy(tmp->cmd, cmd);
@@ -89,7 +89,7 @@ void print_history(char * arg)
     int n = 10;
     char * end;
     if (arg != NULL) n = strtol(arg, &end, 10);
-    struct node *tmp = history;
+    HISTORY *tmp = history;
     int i = 1;
     printf("%d %s\n", i, tmp->cmd);
     while(tmp->next != NULL && (i < n))
@@ -102,7 +102,7 @@ void print_history(char * arg)
 
 void free_history()
 {
-    struct node *tmp = history;
+    HISTORY *tmp = history;
     while(tmp != NULL)
     {
         free(tmp->cmd);
@@ -180,7 +180,6 @@ void fg(char * arg)
         }
         if(process)
             if(kill(process->pid, SIGCONT) == 0) {
-                printf("entrou aqui. pid - %d\n", process->pid);
                 process->isBackground = 0;
                 strcpy(process->status, "Running");
                 sigprocmask(SIG_BLOCK, &chldMask, NULL);
@@ -205,12 +204,12 @@ void kill_cmd(char * arg)
     }
 }
 
-void echo(char ** cmds)
+void echo(COMMAND *cmd)
 {
     int i;
-    for(i = 1; i < cmd_len; i++)
+    for(i = 1; i < cmd->size; i++)
     {
-        printf("%s ", cmds[i]);
+        printf("%s ", cmd->args[i]);
     }
-    if (cmd_len > 1) printf("\n");
+    if (cmd->size > 1) printf("\n");
 }

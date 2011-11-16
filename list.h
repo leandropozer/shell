@@ -1,5 +1,12 @@
 #ifndef _LISTA_H_
 #define _LISTA_H_
+
+typedef struct history
+{
+    char * cmd;
+    struct history *next;
+} HISTORY;
+
 typedef struct
 {
     pid_t pid;
@@ -90,5 +97,5 @@ PROCESS * ListGetLastStopped(LIST *list);
 */
 PROCESS * ListGetProcess(LIST *list, pid_t n);
 void ListPurgeCmds(LIST *list);
-LIST * childs;
+
 #endif
