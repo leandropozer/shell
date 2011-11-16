@@ -82,7 +82,7 @@ int main (int argc, char **argv)
                 else
                 {
                     if(aux->next != NULL)
-                        pipe2(aux->cmd->pipe, O_CLOEXEC);
+                        pipe(aux->cmd->pipe);
                     aux->cmd->pid = fork();
                     if(aux->cmd->pid == 0)
                     {
@@ -152,7 +152,7 @@ int main (int argc, char **argv)
                     p->isBackground = aux->cmd->isBackground;
                     strcpy(p->status, "Running");
                     strcpy(p->command, aux->cmd->args[0]);
-                    sigprocmask(SIG_BLOCK, &chldMask, NULL);
+                    sigprocmask(SIG_BLOCK, &chldMask, NULL); //Atrasa sinal para evitar problemas de concorrência
                     ListInsert(childs, p, NULL);
                     sigprocmask(SIG_UNBLOCK, &chldMask, NULL);
                 }
@@ -160,13 +160,14 @@ int main (int argc, char **argv)
             }
             int i;
             int status;
-            sigprocmask(SIG_BLOCK, &chldMask, NULL);
-            for (i = 0; i < count; i++)
+            sigprocmask(SIG_BLOCK, &chldMask, NULL); //Atrasa sinal para evitar problemas de concorrência
+            for (i = 0; i < count; i++) //Espera por todos os processos do grupo terminar
             {
                 pid_t pidfg = waitpid(-cmdList->first->cmd->pid, &status, WUNTRACED);
                 if ((pidfg >= 0) && (WIFSTOPPED(status) == 0)) ListRemoveByPid(childs, pidfg);
             }
             sigprocmask(SIG_UNBLOCK, &chldMask, NULL);
+
         }
         ListPurgeCmds(cmdList);
         free(cmdLine);
@@ -217,16 +218,17 @@ void sigtstop_handler(int signum)
     PROCESS * process;
     if(!ListIsEmpty(childs))
     {
-            process = ListGetCurrentProcess(childs);
-            if(process)
-                if(kill(process->pid, SIGSTOP) == 0)
-                    strcpy(process->status, "Stopped");
+        process = ListGetCurrentProcess(childs);
+        if(process)
+            if(kill(process->pid, SIGSTOP) == 0)
+                strcpy(process->status, "Stopped");
     }
     else
         printPrompt(username, hostname);
 }
 
-void free_memory() {
+void free_memory()
+{
     free(childs);
     free(cmdList);
     free_history();
