@@ -75,6 +75,10 @@ int ListIsEmpty(LIST *list);
 *   @retval 0 - Não.
 */
 int ListInsert(LIST *list, PROCESS *proc, COMMAND *cmd);
+int ListRemoveByPid(LIST *list, pid_t pid);
+PROCESS *ListGetCurrentProcess(LIST *list);
+
+PROCESS * ListGetLastStopped(LIST *list);
 /** @brief Retorna um processo (estrutura) pelo seu id.
 *   @param list - Ponteiro para a lista.
 *   @param pid - Id do processo a ser procurado.
@@ -84,13 +88,7 @@ int ListInsert(LIST *list, PROCESS *proc, COMMAND *cmd);
 *   @retval 1 - Sim.
 *   @retval 0 - Não.
 */
-int ListGetByPid(LIST *list, pid_t pid, PROCESS *proc);
-int ListStopRunningProcessByPid(LIST *list,pid_t pid);
-int ListRemoveByPid(LIST *list, pid_t pid);
-pid_t ListLastStoppedToBg(LIST *list);
-pid_t ListToBg(LIST *list, pid_t n);
-pid_t ListLastToFg(LIST *list);
-pid_t ListToFg(LIST *list, pid_t n);
+PROCESS * ListGetProcess(LIST *list, pid_t n);
 void ListPurgeCmds(LIST *list);
 LIST * childs;
 #endif

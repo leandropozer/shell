@@ -52,8 +52,7 @@ void parse(char * cmdLine, COMMAND * cmd)
     cmd_len = word_count(cmdLine);
     int before = cmd_len;
     char * cmds;
-    int j, i;
-    j = i = 0;
+    int i = 0;
     char *saveptr;
     cmd->args = (char**)malloc((cmd_len+1)*sizeof(char*));
     cmds = strtok_r(cmdLine, " ", &saveptr);
@@ -90,9 +89,7 @@ void parse(char * cmdLine, COMMAND * cmd)
     }
     cmd->args[i] = (char *)0;
     cmd->args = (char**)realloc(cmd->args, (i+1)*sizeof(char*));
-
     cmd->size = i;
-    //imprimir_argv(parsed, words);
 }
 
 void free_parse()

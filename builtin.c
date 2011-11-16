@@ -100,7 +100,8 @@ void print_history(char * arg)
     }
 }
 
-void free_history() {
+void free_history()
+{
     struct node *tmp = history;
     while(tmp != NULL)
     {
@@ -141,43 +142,52 @@ void bg(char * arg)
 {
     if(!ListIsEmpty(childs))
     {
-        char * end;
         int n;
-        pid_t pid;
+        PROCESS *process;
         if(arg == NULL)
-            pid = ListLastStoppedToBg(childs);
+            process = ListGetLastStopped(childs);
         else
         {
-            n = strtol(arg, &end, 10);
-            pid = ListToBg(childs, n);
+            n = strtol(arg, NULL, 10);
+            process = ListGetProcess(childs, n);
         }
-        kill(pid, SIGCONT);
+        if (process)
+            if(kill(process->pid, SIGCONT) == 0)
+            {
+                process->isBackground = 1;
+                strcpy(process->status, "Running");
+            }
     }
 }
 
 void fg(char * arg)
 {
+    int n;
+    pid_t pidfg;
+    int status;
+    sigset_t chldMask;
+    sigemptyset (&chldMask);
+    sigaddset(&chldMask, SIGCHLD);
+    PROCESS * process;
     if(!ListIsEmpty(childs))
     {
-        char * end;
-        int n;
-        pid_t pid, pidfg;
-        int status;
-        sigset_t chldMask;
-        sigemptyset (&chldMask);
-        sigaddset(&chldMask, SIGCHLD);
         if(arg == NULL)
-            pid = ListLastToFg(childs);
+            process = childs->first->proc;
         else
         {
-            n = strtol(arg, &end, 10);
-            pid = ListToFg(childs, n);
+            n = strtol(arg, NULL, 10);
+            process = ListGetProcess(childs, n);
         }
-        kill(pid, SIGCONT);
-        sigprocmask(SIG_BLOCK, &chldMask, NULL);
-        pidfg = waitpid(pid, &status, WUNTRACED);
-        if ((pidfg >= 0) && (WIFSTOPPED(status) == 0)) ListRemoveByPid(childs, childPid);
-        sigprocmask(SIG_UNBLOCK, &chldMask, NULL);
+        if(process)
+            if(kill(process->pid, SIGCONT) == 0) {
+                printf("entrou aqui. pid - %d\n", process->pid);
+                process->isBackground = 0;
+                strcpy(process->status, "Running");
+                sigprocmask(SIG_BLOCK, &chldMask, NULL);
+                pidfg = waitpid(process->pid, &status, WUNTRACED);
+                if ((pidfg >= 0) && (WIFSTOPPED(status) == 0)) ListRemoveByPid(childs, pidfg);
+                sigprocmask(SIG_UNBLOCK, &chldMask, NULL);
+            }
 
     }
 }

@@ -51,15 +51,13 @@ void child_handler(int signum)
 void sigtstop_handler(int signum)
 {
     printf("\n");
+    PROCESS * process;
     if(!ListIsEmpty(childs))
     {
-        if (childs->last->proc->pid >= 0)
-        {
-            ListStopRunningProcessByPid(childs, childs->last->proc->pid);
-            kill(childs->last->proc->pid, SIGSTOP);
-        }
-        else printPrompt(username, hostname);
-
+            process = ListGetCurrentProcess(childs);
+            if(process)
+                if(kill(process->pid, SIGSTOP) == 0)
+                    strcpy(process->status, "Stopped");
     }
     else
         printPrompt(username, hostname);
