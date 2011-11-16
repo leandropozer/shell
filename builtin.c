@@ -4,6 +4,7 @@
 #include <errno.h>
 #include <wait.h>
 #include <unistd.h>
+#include <fcntl.h>
 #include "main.h"
 #include "builtin.h"
 #include "parser.h"
@@ -26,10 +27,10 @@ void callBuiltIn(int cmd_id, COMMAND *cmd)
         cd(cmd->args[1]);
         break;
     case 1:
-        print_history(cmd->args[1]);
+        print_history(cmd);
         break;
     case 2:
-        pwd();
+        pwd(cmd);
         break;
     case 3:
         ListPurgeCmds(cmdList);
@@ -38,7 +39,7 @@ void callBuiltIn(int cmd_id, COMMAND *cmd)
         exit(0);
         break;
     case 4:
-        jobs();
+        jobs(cmd);
         break;
     case 5:
         bg(cmd->args[1]);
@@ -53,7 +54,7 @@ void callBuiltIn(int cmd_id, COMMAND *cmd)
         echo(cmd);
         break;
     case 9:
-        printf("Shell para trabalho de SSC0141.\nDesenvolvido por Lucas Lobosque e Leandro Pozer.\n");
+        about(cmd);
         break;
     default:
         break;
@@ -84,11 +85,21 @@ void add_history(char * cmd)
     }
 }
 
-void print_history(char * arg)
+void print_history(COMMAND *cmd)
 {
     int n = 10;
     char * end;
-    if (arg != NULL) n = strtol(arg, &end, 10);
+    int fd_out;
+    int fd_std = dup(STDOUT_FILENO);
+    if(cmd->output_r)
+    {
+        if(cmd->output_r_append)
+            fd_out = open(cmd->output_r_filename, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR, 0666);
+        else
+            fd_out = open(cmd->output_r_filename, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR, 0666);
+        dup2(fd_out, 1);
+    }
+    if (cmd->args[1] != NULL) n = strtol(cmd->args[1], &end, 10);
     HISTORY *tmp = history;
     int i = 1;
     printf("%d %s\n", i, tmp->cmd);
@@ -98,6 +109,8 @@ void print_history(char * arg)
         tmp = tmp->next;
         printf("%d %s\n", i, tmp->cmd);
     }
+    dup2(fd_std, 1);
+    close(fd_out);
 }
 
 void free_history()
@@ -119,23 +132,47 @@ void cd(char * arg)
     if (error ==  -1) printf("bash: cd: %s: %s\n", arg,strerror(errno));
 }
 
-void pwd()
+void pwd(COMMAND *cmd)
 {
+    int fd_out;
+    int fd_std = dup(STDOUT_FILENO);
+    if(cmd->output_r)
+    {
+        if(cmd->output_r_append)
+            fd_out = open(cmd->output_r_filename, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR, 0666);
+        else
+            fd_out = open(cmd->output_r_filename, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR, 0666);
+        dup2(fd_out, 1);
+    }
     char path[256];
     getcwd(path, 256);
     printf("%s\n", path);
+    dup2(fd_std, 1);
+    close(fd_out);
 }
 
-void jobs()
+void jobs(COMMAND *cmd)
 {
     NODE *aux = childs->first;
     PROCESS * proc;
+    int fd_out;
+    int fd_std = dup(STDOUT_FILENO);
+    if(cmd->output_r)
+    {
+        if(cmd->output_r_append)
+            fd_out = open(cmd->output_r_filename, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR, 0666);
+        else
+            fd_out = open(cmd->output_r_filename, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR, 0666);
+        dup2(fd_out, 1);
+    }
     while (aux != NULL)
     {
         proc = aux->proc;
         printf("[%d] %s %s\n",proc->pid, proc->status, proc->command);
         aux = aux->next;
     }
+    dup2(fd_std, 1);
+    close(fd_out);
 }
 
 void bg(char * arg)
@@ -179,7 +216,8 @@ void fg(char * arg)
             process = ListGetProcess(childs, n);
         }
         if(process)
-            if(kill(process->pid, SIGCONT) == 0) {
+            if(kill(process->pid, SIGCONT) == 0)
+            {
                 process->isBackground = 0;
                 strcpy(process->status, "Running");
                 sigprocmask(SIG_BLOCK, &chldMask, NULL);
@@ -207,9 +245,37 @@ void kill_cmd(char * arg)
 void echo(COMMAND *cmd)
 {
     int i;
+    int fd_out;
+    int fd_std = dup(STDOUT_FILENO);
+    if(cmd->output_r)
+    {
+        if(cmd->output_r_append)
+            fd_out = open(cmd->output_r_filename, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR, 0666);
+        else
+            fd_out = open(cmd->output_r_filename, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR, 0666);
+        dup2(fd_out, 1);
+    }
     for(i = 1; i < cmd->size; i++)
     {
         printf("%s ", cmd->args[i]);
     }
     if (cmd->size > 1) printf("\n");
+    dup2(fd_std, 1);
+    close(fd_out);
+}
+
+void about(COMMAND *cmd) {
+    int fd_out;
+    int fd_std = dup(STDOUT_FILENO);
+    if(cmd->output_r)
+    {
+        if(cmd->output_r_append)
+            fd_out = open(cmd->output_r_filename, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR, 0666);
+        else
+            fd_out = open(cmd->output_r_filename, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR, 0666);
+        dup2(fd_out, 1);
+    }
+    printf("Shell para trabalho de SSC0141.\nDesenvolvido por Lucas Lobosque e Leandro Pozer.\n");
+    dup2(fd_std, 1);
+    close(fd_out);
 }
