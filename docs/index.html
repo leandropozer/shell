@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>Shell: Shell</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body onload='searchBox.OnSelectItem(0);'>
+<!-- Gerado por Doxygen 1.7.4 -->
+<script type="text/javascript"><!--
+var searchBox = new SearchBox("searchBox", "search",false,'Localizar');
+--></script>
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Shell</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li class="current"><a href="index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="annotated.html"><span>Estruturas&#160;de&#160;dados</span></a></li>
+      <li><a href="files.html"><span>Ficheiros</span></a></li>
+      <li id="searchli">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Localizar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">Shell </div>  </div>
+</div>
+<div class="contents">
+<div class="textblock"><dl class="author"><dt><b>Autor:</b></dt><dd>Lucas Lobosque - 6792645 </dd>
+<dd>
+José Leandro Pozer - 6793222 </dd></dl>
+<dl class="date"><dt><b>Data:</b></dt><dd>16/11/2011</dd></dl>
+<h2><a class="anchor" id="intro"></a>
+Introdução</h2>
+<h3><a class="anchor" id="estrutura_basica_subsec"></a>
+Estrutura básica de Arquivos</h3>
+<p>Desenvolvemos o shell utilizando 4 arquivos diferentes (e seus headers):</p>
+<ul>
+<li>
+<a class="el" href="d0/d29/main_8c.html">main.c</a> - Arquivo com a função main, onde fica o loop principal e com handlers de sinais como SIGINT, SIGTSTP e SIGCHLD. </li>
+<li>
+<a class="el" href="d2/d72/parser_8c.html">parser.c</a> - Funções relacionadas a transformar a entrada do usuário em uma estrutura compreensível para o programa. </li>
+<li>
+<a class="el" href="df/d8a/builtin_8c.html">builtin.c</a> - Aqui estáo todos os comandos builtin e também uma função que checa se um dado comando é builtin ou não. </li>
+<li>
+<a class="el" href="d7/d40/list_8c.html">list.c</a> - Funções que manipulam as listas usadas pelo programa. </li>
+</ul>
+<h3><a class="anchor" id="estrutura_dados_subsec"></a>
+Estrutura básica de Dados</h3>
+<p>No nosso programa, temos três listas ligadas diferentes que são constantemente utilizadas: </p>
+<ul>
+<li>
+history - Esta é a mais simples das três. Guarda strings com os comandos anteriormente utilizados pelo usuário. É usada pelo comando builtin history. </li>
+<li>
+childs - Nesta lista ligada armazenamos todos os processos que estão rodando ou estão interrompidos. </li>
+<li>
+cmdList - Lista responsável por guardar o último comando enviado pelo usuário. Nesta lista, o comando é guardado depois de "parseado", então todas suas informações são guardadas aqui (roda no background? tem redirecionamento de saída? pra onde?). Cada item da lista é um comando diferente, sendo que a lista e sempre resetada no loop. Ou seja, esta lista só conterá mais de um item se houver pipe no comando. </li>
+</ul>
+<h2><a class="anchor" id="section_toc"></a>
+Características Não Implementadas (limitações).</h2>
+<p>Na nossa shell, os seguintes tipos de comando não são possíveis: </p>
+<ul>
+<li>
+Comando builtin rodando em background (sempre rodará em foreground). </li>
+<li>
+Redirecionamento de entrada para comandos builtin (redirecionamento de saída implementado). </li>
+<li>
+Pipe com comandos builtin </li>
+</ul>
+<p>Tornou-se uma tarefa complicada para nós lidar com essas peculiaridades de comandos builtin, já que implementamos sem elas em mente, e, quando percebemos que haveriam essas possibilidades, teríamos que mudar muito a estrutura do programa.</p>
+<h2><a class="anchor" id="testes"></a>
+Testes</h2>
+<p>Além de exaustivos testes com vários comandos complexos, rodamos nossa shell com o Valgrind e encontramos vários memory leaks (a maioria causada por erros bobos, porém alguns eram bem complexos). Arrumamos a maioria deles, mas infelizmente teve um leak que não foi possível concertar, pois ele é causado pela função getlogin(), (implementada na unistd.h). </p>
+<h2><a class="anchor" id="conclusao"></a>
+Conclusão</h2>
+<p>Além de bastante desafiador, o desenvolvimento da shell foi de grande valia para nós, já que nunca tivemos um contato a nível de sistema com o Linux. Depois do desenvolvimento desse programa, arriscamos dizer que entendemos ao menos um pouco de Linux :). </p>
+</div></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Tudo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Estruturas de dados</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Ficheiros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funções</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variáveis</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Definições de tipos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<hr class="footer"/><address class="footer"><small>Gerado em Wed Nov 16 2011 13:59:47 para Shell por&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>Shell: builtin.h Source File</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body onload='searchBox.OnSelectItem(0);'>
+<!-- Gerado por Doxygen 1.7.4 -->
+<script type="text/javascript"><!--
+var searchBox = new SearchBox("searchBox", "../../search",false,'Localizar');
+--></script>
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Shell</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="../../index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="../../annotated.html"><span>Estruturas&#160;de&#160;dados</span></a></li>
+      <li class="current"><a href="../../files.html"><span>Ficheiros</span></a></li>
+      <li id="searchli">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="../../search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Localizar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="../../files.html"><span>Lista&#160;de&#160;ficheiros</span></a></li>
+      <li><a href="../../globals.html"><span>Globais</span></a></li>
+    </ul>
+  </div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">builtin.h</div>  </div>
+</div>
+<div class="contents">
+<a href="../../d6/dcd/builtin_8h.html">Ir para a documentação deste ficheiro.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef _BUILTIN_H_</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define _BUILTIN_H_</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span>
+<a name="l00014"></a>00014 <span class="keywordtype">int</span> <a class="code" href="../../df/d8a/builtin_8c.html#a1893c85eb2b6775249e52160d055a660" title="Verifica se o comando é BuiltIn.">isBuiltIn</a>(<span class="keywordtype">char</span> * cmd);
+<a name="l00015"></a>00015 
+<a name="l00023"></a>00023 <span class="keywordtype">void</span> <a class="code" href="../../df/d8a/builtin_8c.html#ad708a02c8f18880a702ffb8c812e4dc3" title="Executa o comando BuiltIn.">callBuiltIn</a>(<span class="keywordtype">int</span> cmd_id, <a class="code" href="../../dc/d56/structCOMMAND.html" title="Estrutura do comando.">COMMAND</a> *cmd);
+<a name="l00024"></a>00024 
+<a name="l00031"></a>00031 <span class="keywordtype">void</span> <a class="code" href="../../df/d8a/builtin_8c.html#a0d21c66da33aaf960d53034006cca763" title="Adiciona o comando do usuário na lista do histórico.">add_history</a>(<span class="keywordtype">char</span> * cmd);
+<a name="l00032"></a>00032 
+<a name="l00041"></a>00041 <span class="keywordtype">void</span> <a class="code" href="../../df/d8a/builtin_8c.html#acf6f2c8ef74b70b4305d5196139fae52" title="Imprime os comando armazenados no histórico.">print_history</a>(<a class="code" href="../../dc/d56/structCOMMAND.html" title="Estrutura do comando.">COMMAND</a> *cmd);
+<a name="l00042"></a>00042 
+<a name="l00048"></a>00048 <span class="keywordtype">void</span> <a class="code" href="../../df/d8a/builtin_8c.html#aee8d6e3c935ddb053d8b7cc9d051ce6c" title="Libera memória alocada pelo histórico.">free_history</a>();
+<a name="l00049"></a>00049 
+<a name="l00056"></a>00056 <span class="keywordtype">void</span> <a class="code" href="../../df/d8a/builtin_8c.html#ad209af1258aa067bc02a748591cacc60" title="Muda o diretório atual no qual o sistema está trabalhando.">cd</a>(<span class="keywordtype">char</span> * arg);
+<a name="l00057"></a>00057 
+<a name="l00065"></a>00065 <span class="keywordtype">void</span> <a class="code" href="../../df/d8a/builtin_8c.html#a481cb85d409e7a00dec05d6eb0fe5cc0" title="Mostra o diretório no qual o sistema está trabalhando.">pwd</a>(<a class="code" href="../../dc/d56/structCOMMAND.html" title="Estrutura do comando.">COMMAND</a> *cmd);
+<a name="l00066"></a>00066 
+<a name="l00074"></a>00074 <span class="keywordtype">void</span> <a class="code" href="../../df/d8a/builtin_8c.html#a985e8cfc499be89f614026879707a24a" title="Mostra uma lista com os jobs atuais.">jobs</a>(<a class="code" href="../../dc/d56/structCOMMAND.html" title="Estrutura do comando.">COMMAND</a> *cmd);
+<a name="l00075"></a>00075 
+<a name="l00083"></a>00083 <span class="keywordtype">void</span> <a class="code" href="../../df/d8a/builtin_8c.html#a7841e86c4937f37c181dc7816de3137b" title="Coloca um processo em background.">bg</a>(<span class="keywordtype">char</span> * arg);
+<a name="l00084"></a>00084 
+<a name="l00092"></a>00092 <span class="keywordtype">void</span> <a class="code" href="../../df/d8a/builtin_8c.html#aef7ce9bd64e1fb3930c692ca71e9fbc8" title="Coloca um processo suspenso em foreground.">fg</a>(<span class="keywordtype">char</span> * arg);
+<a name="l00093"></a>00093 
+<a name="l00101"></a>00101 <span class="keywordtype">void</span> <a class="code" href="../../df/d8a/builtin_8c.html#a2ef1a4232f7e654b588e07cdabc2a812" title="Manda o sinal SIGTERM para um processo filho.">kill_cmd</a>(<span class="keywordtype">char</span> * arg);
+<a name="l00102"></a>00102 
+<a name="l00111"></a>00111 <span class="keywordtype">void</span> <a class="code" href="../../df/d8a/builtin_8c.html#ac708a7e1134b63b98924fe16343d6ab0" title="imprime os argumentos enviados na tela.">echo</a> (<a class="code" href="../../dc/d56/structCOMMAND.html" title="Estrutura do comando.">COMMAND</a> *cmd);
+<a name="l00112"></a>00112 
+<a name="l00120"></a>00120 <span class="keywordtype">void</span> <a class="code" href="../../df/d8a/builtin_8c.html#aea7537eb3b10362f97ab13ceaab0f6bb" title="Comando simples que imprime informações sobre os autores.">about</a>(<a class="code" href="../../dc/d56/structCOMMAND.html" title="Estrutura do comando.">COMMAND</a> *cmd);
+<a name="l00121"></a>00121 <span class="preprocessor">#endif</span>
+</pre></div></div>
+</div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Tudo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Estruturas de dados</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Ficheiros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funções</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variáveis</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Definições de tipos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<hr class="footer"/><address class="footer"><small>Gerado em Wed Nov 16 2011 13:59:47 para Shell por&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

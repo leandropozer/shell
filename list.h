@@ -1,12 +1,21 @@
 #ifndef _LISTA_H_
 #define _LISTA_H_
 
+/** @brief Lista simples para uso do comando builtin history.
+*
+*/
 typedef struct history
 {
     char * cmd;
     struct history *next;
 } HISTORY;
 
+/** @brief Estrutura do processo.
+*
+*          Esta estrutura guarda todas as informações
+*          pertinentes de um processo.
+*
+*/
 typedef struct
 {
     pid_t pid;
@@ -15,6 +24,16 @@ typedef struct
     int isBackground;
 } PROCESS;
 
+/** @brief Estrutura do comando.
+*
+*          Esta estrutura guarda todas as informações
+*          pertinentes de um comando.
+*          Nesta implementação, um comando é definido
+*          como um execultável ou builtin e seus argumentos.
+*          cat arquivo | grep palavra | cut -c 1-6 tem 3 comandos,
+*          por exemplo.
+*
+*/
 typedef struct
 {
     char **args;
@@ -30,6 +49,13 @@ typedef struct
     pid_t pid;
 } COMMAND;
 
+/** @brief Nó das listas de comandos e processos.
+*
+*          Temos na mesma estrutura de nó um ponteiro para comando
+*          e outro para processo. Isso foi feito para facilitar a
+*          implementação, os dois não devem ser usados juntos.
+*
+*/
 typedef struct NODE
 {
     PROCESS *proc;
@@ -38,6 +64,10 @@ typedef struct NODE
     struct NODE *prev;
 } NODE;
 
+
+/** @brief Estrutura da lista em si.
+*
+*/
 typedef struct
 {
     NODE *first;
@@ -47,25 +77,28 @@ typedef struct
 
 /** @brief Inicializa a lista para uso posterior.
 *   @param list - Ponteiro para lista a ser inicializada.
-*   @return Void.
+*   @return void.
 */
 void ListCreate(LIST *list);
+
 /** @brief Inicializa um comando (estrutura) para
 *          uso posterior.
-*   @param list - Ponteiro para comando (estrutura)
+*   @param cmd - Ponteiro para comando (estrutura)
 *          a ser inicializada.
-*   @return Void.
+*   @return void.
 */
 void initCommand(COMMAND *cmd);
+
 /** @brief Verifica se uma lista está vazia.
 *   @param list - Ponteiro para a lista.
-*   @return Se a lista está vazia
-*           Caso contrário.
+*   @return Se a lista está vazia.
 *   @retval 1 - Sim.
 *   @retval 0 - Não.
 */
 int ListIsEmpty(LIST *list);
+
 /** @brief Insere um processo e/ou um comando na lista.
+*
 *          Na prática, deve ser usada uma lista para
 *          comandos e outra para processos.
 *          Elas só estão na mesma estrutura para evitar
@@ -77,25 +110,45 @@ int ListIsEmpty(LIST *list);
 *   @param list - Ponteiro para a lista.
 *   @param proc - Ponteiro para processo (estrutura).
 *   @param cmd - Ponteiro para comando (estrutura).
-*   @return Se foi possível inserir
+*   @return Se foi possível inserir.
 *   @retval 1 - Sim.
 *   @retval 0 - Não.
 */
 int ListInsert(LIST *list, PROCESS *proc, COMMAND *cmd);
-int ListRemoveByPid(LIST *list, pid_t pid);
-PROCESS *ListGetCurrentProcess(LIST *list);
 
-PROCESS * ListGetLastStopped(LIST *list);
-/** @brief Retorna um processo (estrutura) pelo seu id.
-*   @param list - Ponteiro para a lista.
-*   @param pid - Id do processo a ser procurado.
-*   @param proc - Ponteiro que apontará para lista
-*   @return Se a lista está vazia
-*           Caso contrário.
+/** @brief Remove um processo da lista pelo seu ID.
+*   @param list - Ponteiro para a lista de processos.
+*   @param pid - ID do processo.
+*   @return Se a remoção foi feita.
 *   @retval 1 - Sim.
 *   @retval 0 - Não.
 */
-PROCESS * ListGetProcess(LIST *list, pid_t n);
+int ListRemoveByPid(LIST *list, pid_t pid);
+
+/** @brief Retorna o processo que está rodando em foreground.
+*   @param list - Ponteiro para a lista de processos.
+*   @return Processo em questão. (NULL caso não tenha um).
+*/
+PROCESS *ListGetCurrentProcess(LIST *list);
+
+/** @brief Busca e retorna o processo parado mais recente.
+*   @param list - Ponteiro para a lista de processos.
+*   @return Processo em questão. (NULL caso não tenha um).
+*/
+PROCESS * ListGetLastStopped(LIST *list);
+
+/** @brief Retorna um processo pelo seu id.
+*   @param list - Ponteiro para a lista.
+*   @param pid - Id do processo a ser procurado.
+*   @return Ponteiro para o processo. (NULL caso
+*           não encontrado).
+*/
+PROCESS * ListGetProcess(LIST *list, pid_t pid);
+
+/** @brief Libera espaço alocado pela lista de comandos.
+*   @param list - Ponteiro para a lista de comandos.
+*   @return void.
+*/
 void ListPurgeCmds(LIST *list);
 
 #endif

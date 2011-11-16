@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>Shell: Referência ao ficheiro parser.c</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body onload='searchBox.OnSelectItem(0);'>
+<!-- Gerado por Doxygen 1.7.4 -->
+<script type="text/javascript"><!--
+var searchBox = new SearchBox("searchBox", "../../search",false,'Localizar');
+--></script>
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Shell</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="../../index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="../../annotated.html"><span>Estruturas&#160;de&#160;dados</span></a></li>
+      <li class="current"><a href="../../files.html"><span>Ficheiros</span></a></li>
+      <li id="searchli">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="../../search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Localizar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="../../files.html"><span>Lista&#160;de&#160;ficheiros</span></a></li>
+      <li><a href="../../globals.html"><span>Globais</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Funções</a>  </div>
+  <div class="headertitle">
+<div class="title">Referência ao ficheiro parser.c</div>  </div>
+</div>
+<div class="contents">
+<div class="textblock"><code>#include &lt;string.h&gt;</code><br/>
+<code>#include &lt;stdio.h&gt;</code><br/>
+<code>#include &lt;stdlib.h&gt;</code><br/>
+<code>#include &lt;ctype.h&gt;</code><br/>
+<code>#include &quot;<a class="el" href="../../d5/d36/parser_8h_source.html">parser.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>&quot;</code><br/>
+</div><table class="memberdecls">
+<tr><td colspan="2"><h2><a name="func-members"></a>
+Funções</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#ac82316733409f08a54ae0e8730ded9e4">imprimir_argv</a> (char **matriz, int tamanho)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#a6a5cdc31daa99b176728883647eb78b5">word_count</a> (char *source)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Conta o número de palavras de uma string.  <a href="#a6a5cdc31daa99b176728883647eb78b5"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#a6c8979e68cba1751228d2c4d45c16586">getCmds</a> (<a class="el" href="../../d8/d91/structLIST.html">LIST</a> *<a class="el" href="../../d4/dbf/main_8h.html#ad901e8de5538c17d7b770b9302274545">cmdList</a>, char *<a class="el" href="../../d4/dbf/main_8h.html#a6288e33e5b5d31672f5afe3ddc500c23">cmdLine</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Adiciona em uma lista o(s) comando(s) digitado(s) pelo usuário.  <a href="#a6c8979e68cba1751228d2c4d45c16586"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#a4253ffe986b99cded4f26e276ae250e5">parse</a> (char *<a class="el" href="../../d4/dbf/main_8h.html#a6288e33e5b5d31672f5afe3ddc500c23">cmdLine</a>, <a class="el" href="../../dc/d56/structCOMMAND.html">COMMAND</a> *cmd)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Recebe a linha de comando e separa os argumentos.  <a href="#a4253ffe986b99cded4f26e276ae250e5"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#ab91ff5dc184b7c19eb5548eeb2e61456">readline</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Lê o comando digitado pelo usuário.  <a href="#ab91ff5dc184b7c19eb5548eeb2e61456"></a><br/></td></tr>
+</table>
+<hr/><h2>Documentação das funções</h2>
+<a class="anchor" id="a6c8979e68cba1751228d2c4d45c16586"></a><!-- doxytag: member="parser.c::getCmds" ref="a6c8979e68cba1751228d2c4d45c16586" args="(LIST *cmdList, char *cmdLine)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void getCmds </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d91/structLIST.html">LIST</a> *&#160;</td>
+          <td class="paramname"><em>cmdList</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>cmdLine</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Adiciona em uma lista o(s) comando(s) digitado(s) pelo usuário. </p>
+<p>Pega toda a linha de comando digitada e adiciona o comando com seus parâmetros na lista. Em caso de uso do pipe, haverá mais de um comando a ser executado, ela quebrará a linha de comando e colocará cada comando com seus parâmetros em uma lista. </p>
+<dl><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmdList</td><td>- lista onde os comandos serão armazenados </td></tr>
+    <tr><td class="paramname">cmdLine</td><td>- linha de comando digitada pelo usuário </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>void. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac82316733409f08a54ae0e8730ded9e4"></a><!-- doxytag: member="parser.c::imprimir_argv" ref="ac82316733409f08a54ae0e8730ded9e4" args="(char **matriz, int tamanho)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void imprimir_argv </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>matriz</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tamanho</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4253ffe986b99cded4f26e276ae250e5"></a><!-- doxytag: member="parser.c::parse" ref="a4253ffe986b99cded4f26e276ae250e5" args="(char *cmdLine, COMMAND *cmd)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void parse </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>cmdLine</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dc/d56/structCOMMAND.html">COMMAND</a> *&#160;</td>
+          <td class="paramname"><em>command</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Recebe a linha de comando e separa os argumentos. </p>
+<p>Retira os espaços entre os comandos e seus argumentos, armazena os comandos e seus parâmetros em um vetor de strings, na última posição do vetor coloca NULL, isso para o camando ser interpretado pela função execvp. </p>
+<dl><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmdLine</td><td>- linha de comando que será "parseada". </td></tr>
+    <tr><td class="paramname">command</td><td>- estrutura que receberá cada comando, com suas flags e parâmetros </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>void. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab91ff5dc184b7c19eb5548eeb2e61456"></a><!-- doxytag: member="parser.c::readline" ref="ab91ff5dc184b7c19eb5548eeb2e61456" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* readline </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Lê o comando digitado pelo usuário. </p>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>Comando digitado pelo usuário. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a6a5cdc31daa99b176728883647eb78b5"></a><!-- doxytag: member="parser.c::word_count" ref="a6a5cdc31daa99b176728883647eb78b5" args="(char *source)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int word_count </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>source</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Conta o número de palavras de uma string. </p>
+<dl><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>- String para contar. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>Número de palavras da string passada como parâmetro. </dd></dl>
+
+</div>
+</div>
+</div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Tudo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Estruturas de dados</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Ficheiros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funções</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variáveis</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Definições de tipos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<hr class="footer"/><address class="footer"><small>Gerado em Wed Nov 16 2011 13:59:47 para Shell por&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

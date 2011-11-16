@@ -1,0 +1,407 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>Shell: Referência ao ficheiro list.c</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body onload='searchBox.OnSelectItem(0);'>
+<!-- Gerado por Doxygen 1.7.4 -->
+<script type="text/javascript"><!--
+var searchBox = new SearchBox("searchBox", "../../search",false,'Localizar');
+--></script>
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Shell</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="../../index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="../../annotated.html"><span>Estruturas&#160;de&#160;dados</span></a></li>
+      <li class="current"><a href="../../files.html"><span>Ficheiros</span></a></li>
+      <li id="searchli">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="../../search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Localizar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="../../files.html"><span>Lista&#160;de&#160;ficheiros</span></a></li>
+      <li><a href="../../globals.html"><span>Globais</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Funções</a>  </div>
+  <div class="headertitle">
+<div class="title">Referência ao ficheiro list.c</div>  </div>
+</div>
+<div class="contents">
+<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br/>
+<code>#include &lt;stdlib.h&gt;</code><br/>
+<code>#include &lt;string.h&gt;</code><br/>
+<code>#include &quot;<a class="el" href="../../da/d23/list_8h_source.html">list.h</a>&quot;</code><br/>
+</div><table class="memberdecls">
+<tr><td colspan="2"><h2><a name="func-members"></a>
+Funções</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d40/list_8c.html#a95e35bfe7f68f050c09e1d849f9058d4">ListCreate</a> (<a class="el" href="../../d8/d91/structLIST.html">LIST</a> *list)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Inicializa a lista para uso posterior.  <a href="#a95e35bfe7f68f050c09e1d849f9058d4"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d40/list_8c.html#a38747116958ffddf8f9b58c6174ecb68">initCommand</a> (<a class="el" href="../../dc/d56/structCOMMAND.html">COMMAND</a> *cmd)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Inicializa um comando (estrutura) para uso posterior.  <a href="#a38747116958ffddf8f9b58c6174ecb68"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d40/list_8c.html#a1a9c1d2d2a688c33ced99296b2e8f647">ListIsEmpty</a> (<a class="el" href="../../d8/d91/structLIST.html">LIST</a> *list)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifica se uma lista está vazia.  <a href="#a1a9c1d2d2a688c33ced99296b2e8f647"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d40/list_8c.html#a11e56b0590057adefe3abdf5d4e26129">ListInsert</a> (<a class="el" href="../../d8/d91/structLIST.html">LIST</a> *list, <a class="el" href="../../dc/dd8/structPROCESS.html">PROCESS</a> *proc, <a class="el" href="../../dc/d56/structCOMMAND.html">COMMAND</a> *cmd)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Insere um processo e/ou um comando na lista.  <a href="#a11e56b0590057adefe3abdf5d4e26129"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d40/list_8c.html#aec794ee38aeff5304b00d9a1160e926a">ListRemoveByPid</a> (<a class="el" href="../../d8/d91/structLIST.html">LIST</a> *list, pid_t pid)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove um processo da lista pelo seu ID.  <a href="#aec794ee38aeff5304b00d9a1160e926a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dd8/structPROCESS.html">PROCESS</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d40/list_8c.html#aa2436206209aede711b864875bad0c1b">ListGetCurrentProcess</a> (<a class="el" href="../../d8/d91/structLIST.html">LIST</a> *list)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Retorna o processo que está rodando em foreground.  <a href="#aa2436206209aede711b864875bad0c1b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dd8/structPROCESS.html">PROCESS</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d40/list_8c.html#ae0592de06d4710a0a0cd74e3088a3643">ListGetLastStopped</a> (<a class="el" href="../../d8/d91/structLIST.html">LIST</a> *list)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Busca e retorna o processo parado mais recente.  <a href="#ae0592de06d4710a0a0cd74e3088a3643"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dd8/structPROCESS.html">PROCESS</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d40/list_8c.html#aebbacf45337b97c8c8735777a91d6b84">ListGetProcess</a> (<a class="el" href="../../d8/d91/structLIST.html">LIST</a> *list, pid_t pid)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Retorna um processo pelo seu id.  <a href="#aebbacf45337b97c8c8735777a91d6b84"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d40/list_8c.html#a2f39c318d8184081132a71563e2ea964">ListPurgeCmds</a> (<a class="el" href="../../d8/d91/structLIST.html">LIST</a> *list)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Libera espaço alocado pela lista de comandos.  <a href="#a2f39c318d8184081132a71563e2ea964"></a><br/></td></tr>
+</table>
+<hr/><h2>Documentação das funções</h2>
+<a class="anchor" id="a38747116958ffddf8f9b58c6174ecb68"></a><!-- doxytag: member="list.c::initCommand" ref="a38747116958ffddf8f9b58c6174ecb68" args="(COMMAND *cmd)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void initCommand </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/d56/structCOMMAND.html">COMMAND</a> *&#160;</td>
+          <td class="paramname"><em>cmd</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Inicializa um comando (estrutura) para uso posterior. </p>
+<dl><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmd</td><td>- Ponteiro para comando (estrutura) a ser inicializada. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>void. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a95e35bfe7f68f050c09e1d849f9058d4"></a><!-- doxytag: member="list.c::ListCreate" ref="a95e35bfe7f68f050c09e1d849f9058d4" args="(LIST *list)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ListCreate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d91/structLIST.html">LIST</a> *&#160;</td>
+          <td class="paramname"><em>list</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Inicializa a lista para uso posterior. </p>
+<dl><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">list</td><td>- Ponteiro para lista a ser inicializada. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>void. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa2436206209aede711b864875bad0c1b"></a><!-- doxytag: member="list.c::ListGetCurrentProcess" ref="aa2436206209aede711b864875bad0c1b" args="(LIST *list)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dc/dd8/structPROCESS.html">PROCESS</a>* ListGetCurrentProcess </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d91/structLIST.html">LIST</a> *&#160;</td>
+          <td class="paramname"><em>list</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Retorna o processo que está rodando em foreground. </p>
+<dl><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">list</td><td>- Ponteiro para a lista de processos. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>Processo em questão. (NULL caso não tenha um). </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae0592de06d4710a0a0cd74e3088a3643"></a><!-- doxytag: member="list.c::ListGetLastStopped" ref="ae0592de06d4710a0a0cd74e3088a3643" args="(LIST *list)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dc/dd8/structPROCESS.html">PROCESS</a>* ListGetLastStopped </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d91/structLIST.html">LIST</a> *&#160;</td>
+          <td class="paramname"><em>list</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Busca e retorna o processo parado mais recente. </p>
+<dl><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">list</td><td>- Ponteiro para a lista de processos. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>Processo em questão. (NULL caso não tenha um). </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aebbacf45337b97c8c8735777a91d6b84"></a><!-- doxytag: member="list.c::ListGetProcess" ref="aebbacf45337b97c8c8735777a91d6b84" args="(LIST *list, pid_t pid)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dc/dd8/structPROCESS.html">PROCESS</a>* ListGetProcess </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d91/structLIST.html">LIST</a> *&#160;</td>
+          <td class="paramname"><em>list</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">pid_t&#160;</td>
+          <td class="paramname"><em>pid</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Retorna um processo pelo seu id. </p>
+<dl><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">list</td><td>- Ponteiro para a lista. </td></tr>
+    <tr><td class="paramname">pid</td><td>- Id do processo a ser procurado. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>Ponteiro para o processo. (NULL caso não encontrado). </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a11e56b0590057adefe3abdf5d4e26129"></a><!-- doxytag: member="list.c::ListInsert" ref="a11e56b0590057adefe3abdf5d4e26129" args="(LIST *list, PROCESS *proc, COMMAND *cmd)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ListInsert </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d91/structLIST.html">LIST</a> *&#160;</td>
+          <td class="paramname"><em>list</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dc/dd8/structPROCESS.html">PROCESS</a> *&#160;</td>
+          <td class="paramname"><em>proc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dc/d56/structCOMMAND.html">COMMAND</a> *&#160;</td>
+          <td class="paramname"><em>cmd</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Insere um processo e/ou um comando na lista. </p>
+<p>Na prática, deve ser usada uma lista para comandos e outra para processos. Elas só estão na mesma estrutura para evitar repetição de código. Caso esteja inserindo em uma lista de processos, o argumento cmd deve ser NULL. Caso esteja inserindo em uma lista de comandos, o argumento proc deve ser NULL. </p>
+<dl><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">list</td><td>- Ponteiro para a lista. </td></tr>
+    <tr><td class="paramname">proc</td><td>- Ponteiro para processo (estrutura). </td></tr>
+    <tr><td class="paramname">cmd</td><td>- Ponteiro para comando (estrutura). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>Se foi possível inserir. </dd></dl>
+<dl><dt><b>Valores retornados:</b></dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">1</td><td>- Sim. </td></tr>
+    <tr><td class="paramname">0</td><td>- Não. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a1a9c1d2d2a688c33ced99296b2e8f647"></a><!-- doxytag: member="list.c::ListIsEmpty" ref="a1a9c1d2d2a688c33ced99296b2e8f647" args="(LIST *list)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ListIsEmpty </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d91/structLIST.html">LIST</a> *&#160;</td>
+          <td class="paramname"><em>list</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Verifica se uma lista está vazia. </p>
+<dl><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">list</td><td>- Ponteiro para a lista. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>Se a lista está vazia. </dd></dl>
+<dl><dt><b>Valores retornados:</b></dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">1</td><td>- Sim. </td></tr>
+    <tr><td class="paramname">0</td><td>- Não. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a2f39c318d8184081132a71563e2ea964"></a><!-- doxytag: member="list.c::ListPurgeCmds" ref="a2f39c318d8184081132a71563e2ea964" args="(LIST *list)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ListPurgeCmds </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d91/structLIST.html">LIST</a> *&#160;</td>
+          <td class="paramname"><em>list</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Libera espaço alocado pela lista de comandos. </p>
+<dl><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">list</td><td>- Ponteiro para a lista de comandos. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>void. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aec794ee38aeff5304b00d9a1160e926a"></a><!-- doxytag: member="list.c::ListRemoveByPid" ref="aec794ee38aeff5304b00d9a1160e926a" args="(LIST *list, pid_t pid)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ListRemoveByPid </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d91/structLIST.html">LIST</a> *&#160;</td>
+          <td class="paramname"><em>list</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">pid_t&#160;</td>
+          <td class="paramname"><em>pid</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Remove um processo da lista pelo seu ID. </p>
+<dl><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">list</td><td>- Ponteiro para a lista de processos. </td></tr>
+    <tr><td class="paramname">pid</td><td>- ID do processo. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>Se a remoção foi feita. </dd></dl>
+<dl><dt><b>Valores retornados:</b></dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">1</td><td>- Sim. </td></tr>
+    <tr><td class="paramname">0</td><td>- Não. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Tudo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Estruturas de dados</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Ficheiros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funções</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variáveis</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Definições de tipos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<hr class="footer"/><address class="footer"><small>Gerado em Wed Nov 16 2011 13:59:47 para Shell por&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

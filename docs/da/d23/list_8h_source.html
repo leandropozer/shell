@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>Shell: list.h Source File</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body onload='searchBox.OnSelectItem(0);'>
+<!-- Gerado por Doxygen 1.7.4 -->
+<script type="text/javascript"><!--
+var searchBox = new SearchBox("searchBox", "../../search",false,'Localizar');
+--></script>
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Shell</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="../../index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="../../annotated.html"><span>Estruturas&#160;de&#160;dados</span></a></li>
+      <li class="current"><a href="../../files.html"><span>Ficheiros</span></a></li>
+      <li id="searchli">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="../../search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Localizar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="../../files.html"><span>Lista&#160;de&#160;ficheiros</span></a></li>
+      <li><a href="../../globals.html"><span>Globais</span></a></li>
+    </ul>
+  </div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">list.h</div>  </div>
+</div>
+<div class="contents">
+<a href="../../da/d23/list_8h.html">Ir para a documentação deste ficheiro.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef _LISTA_H_</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define _LISTA_H_</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span>
+<a name="l00007"></a><a class="code" href="../../d9/d2e/structhistory.html">00007</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="../../d9/d2e/structhistory.html" title="Lista simples para uso do comando builtin history.">history</a>
+<a name="l00008"></a>00008 {
+<a name="l00009"></a><a class="code" href="../../d9/d2e/structhistory.html#ab18ddf0a2e2491a0235706c8ed6e2592">00009</a>     <span class="keywordtype">char</span> * <a class="code" href="../../d9/d2e/structhistory.html#ab18ddf0a2e2491a0235706c8ed6e2592">cmd</a>;
+<a name="l00010"></a><a class="code" href="../../d9/d2e/structhistory.html#a8b33a8ab11ad4a8a569db7ad6b65396a">00010</a>     <span class="keyword">struct </span><a class="code" href="../../d9/d2e/structhistory.html" title="Lista simples para uso do comando builtin history.">history</a> *<a class="code" href="../../d9/d2e/structhistory.html#a8b33a8ab11ad4a8a569db7ad6b65396a">next</a>;
+<a name="l00011"></a>00011 } <a class="code" href="../../da/d23/list_8h.html#a3ff676340d5ce000e34465bfac2c3f93" title="Lista simples para uso do comando builtin history.">HISTORY</a>;
+<a name="l00012"></a>00012 
+<a name="l00019"></a><a class="code" href="../../dc/dd8/structPROCESS.html">00019</a> <span class="keyword">typedef</span> <span class="keyword">struct</span>
+<a name="l00020"></a>00020 {
+<a name="l00021"></a><a class="code" href="../../dc/dd8/structPROCESS.html#a2f9fea759c351d7aee5063349b55d7f1">00021</a>     pid_t <a class="code" href="../../dc/dd8/structPROCESS.html#a2f9fea759c351d7aee5063349b55d7f1">pid</a>;
+<a name="l00022"></a><a class="code" href="../../dc/dd8/structPROCESS.html#a9dc614b69d2a3d0bab7fa2819d0d1f6f">00022</a>     <span class="keywordtype">char</span> command[256];
+<a name="l00023"></a><a class="code" href="../../dc/dd8/structPROCESS.html#ab141d176b2099ec91be1d1e30dd1041e">00023</a>     <span class="keywordtype">char</span> status[100];
+<a name="l00024"></a><a class="code" href="../../dc/dd8/structPROCESS.html#a855c2de1bcb0d6f69f8ccb68929892e7">00024</a>     <span class="keywordtype">int</span> <a class="code" href="../../dc/dd8/structPROCESS.html#a855c2de1bcb0d6f69f8ccb68929892e7">isBackground</a>;
+<a name="l00025"></a>00025 } <a class="code" href="../../dc/dd8/structPROCESS.html" title="Estrutura do processo.">PROCESS</a>;
+<a name="l00026"></a>00026 
+<a name="l00037"></a><a class="code" href="../../dc/d56/structCOMMAND.html">00037</a> <span class="keyword">typedef</span> <span class="keyword">struct</span>
+<a name="l00038"></a>00038 {
+<a name="l00039"></a><a class="code" href="../../dc/d56/structCOMMAND.html#a85154d8a9af52d8ec134a7697922ca74">00039</a>     <span class="keywordtype">char</span> **<a class="code" href="../../dc/d56/structCOMMAND.html#a85154d8a9af52d8ec134a7697922ca74">args</a>;
+<a name="l00040"></a><a class="code" href="../../dc/d56/structCOMMAND.html#a750bca90a6882969ce9028d9b7181d18">00040</a>     <span class="keywordtype">int</span> <a class="code" href="../../dc/d56/structCOMMAND.html#a750bca90a6882969ce9028d9b7181d18">isBackground</a>;
+<a name="l00041"></a><a class="code" href="../../dc/d56/structCOMMAND.html#a58254e78244bb43bbaaf405db9bfcb71">00041</a>     <span class="keywordtype">int</span> <a class="code" href="../../dc/d56/structCOMMAND.html#a58254e78244bb43bbaaf405db9bfcb71">input_r</a>;
+<a name="l00042"></a><a class="code" href="../../dc/d56/structCOMMAND.html#ab5112d2dd5bad124dfbc98770ab0a1cd">00042</a>     <span class="keywordtype">int</span> <a class="code" href="../../dc/d56/structCOMMAND.html#ab5112d2dd5bad124dfbc98770ab0a1cd">output_r</a>;
+<a name="l00043"></a><a class="code" href="../../dc/d56/structCOMMAND.html#a5360fe73003f29a0c338f45746fb2606">00043</a>     <span class="keywordtype">int</span> <a class="code" href="../../dc/d56/structCOMMAND.html#a5360fe73003f29a0c338f45746fb2606">output_r_append</a>;
+<a name="l00044"></a><a class="code" href="../../dc/d56/structCOMMAND.html#a42df0de2a8cd23447416b9f231bd2642">00044</a>     <span class="keywordtype">int</span> <a class="code" href="../../dc/d56/structCOMMAND.html#a42df0de2a8cd23447416b9f231bd2642">size</a>;
+<a name="l00045"></a><a class="code" href="../../dc/d56/structCOMMAND.html#aae45f326d1d42d9b2b78d94103fd8461">00045</a>     <span class="keywordtype">char</span> * <a class="code" href="../../dc/d56/structCOMMAND.html#aae45f326d1d42d9b2b78d94103fd8461">output_r_filename</a>;
+<a name="l00046"></a><a class="code" href="../../dc/d56/structCOMMAND.html#af5637ed8e07a09b112c2bc3b683d086a">00046</a>     <span class="keywordtype">char</span> * <a class="code" href="../../dc/d56/structCOMMAND.html#af5637ed8e07a09b112c2bc3b683d086a">input_r_filename</a>;
+<a name="l00047"></a><a class="code" href="../../dc/d56/structCOMMAND.html#a8bc690c0a61da178c20b22e5cc22f29b">00047</a>     <span class="keywordtype">int</span> <a class="code" href="../../dc/d56/structCOMMAND.html#a8bc690c0a61da178c20b22e5cc22f29b">id</a>;
+<a name="l00048"></a><a class="code" href="../../dc/d56/structCOMMAND.html#a60dce42348c5cfd29e21f967fa6fcf86">00048</a>     <span class="keywordtype">int</span> pipe[2];
+<a name="l00049"></a><a class="code" href="../../dc/d56/structCOMMAND.html#aab892f137c989280af3d21da2811886a">00049</a>     pid_t <a class="code" href="../../dc/d56/structCOMMAND.html#aab892f137c989280af3d21da2811886a">pid</a>;
+<a name="l00050"></a>00050 } <a class="code" href="../../dc/d56/structCOMMAND.html" title="Estrutura do comando.">COMMAND</a>;
+<a name="l00051"></a>00051 
+<a name="l00059"></a><a class="code" href="../../db/d62/structNODE.html">00059</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="../../db/d62/structNODE.html" title="Nó das listas de comandos e processos.">NODE</a>
+<a name="l00060"></a>00060 {
+<a name="l00061"></a><a class="code" href="../../db/d62/structNODE.html#a9b06f9394c6eb2aea38ad5f5ae6914c0">00061</a>     <a class="code" href="../../dc/dd8/structPROCESS.html" title="Estrutura do processo.">PROCESS</a> *<a class="code" href="../../db/d62/structNODE.html#a9b06f9394c6eb2aea38ad5f5ae6914c0">proc</a>;
+<a name="l00062"></a><a class="code" href="../../db/d62/structNODE.html#a0533e109ddfa13a74a990c716d7d80e3">00062</a>     <a class="code" href="../../dc/d56/structCOMMAND.html" title="Estrutura do comando.">COMMAND</a> *<a class="code" href="../../db/d62/structNODE.html#a0533e109ddfa13a74a990c716d7d80e3">cmd</a>;
+<a name="l00063"></a><a class="code" href="../../db/d62/structNODE.html#a59cfad4f2f31307091d36f5304ffddea">00063</a>     <span class="keyword">struct </span><a class="code" href="../../db/d62/structNODE.html" title="Nó das listas de comandos e processos.">NODE</a> *<a class="code" href="../../db/d62/structNODE.html#a59cfad4f2f31307091d36f5304ffddea">next</a>;
+<a name="l00064"></a><a class="code" href="../../db/d62/structNODE.html#a72edd36023c89c2b839c39f637ae8460">00064</a>     <span class="keyword">struct </span><a class="code" href="../../db/d62/structNODE.html" title="Nó das listas de comandos e processos.">NODE</a> *<a class="code" href="../../db/d62/structNODE.html#a72edd36023c89c2b839c39f637ae8460">prev</a>;
+<a name="l00065"></a>00065 } <a class="code" href="../../da/d23/list_8h.html#a9d970b08e044815c86f3f84999755bdd" title="Nó das listas de comandos e processos.">NODE</a>;
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067 
+<a name="l00071"></a><a class="code" href="../../d8/d91/structLIST.html">00071</a> <span class="keyword">typedef</span> <span class="keyword">struct</span>
+<a name="l00072"></a>00072 {
+<a name="l00073"></a><a class="code" href="../../d8/d91/structLIST.html#a07d7bce5a2b6cd2f5941166eb445d7a6">00073</a>     <a class="code" href="../../db/d62/structNODE.html" title="Nó das listas de comandos e processos.">NODE</a> *<a class="code" href="../../d8/d91/structLIST.html#a07d7bce5a2b6cd2f5941166eb445d7a6">first</a>;
+<a name="l00074"></a><a class="code" href="../../d8/d91/structLIST.html#a5ac3b6223fcd1e736c37b9cdfbf0ca41">00074</a>     <a class="code" href="../../db/d62/structNODE.html" title="Nó das listas de comandos e processos.">NODE</a> *<a class="code" href="../../d8/d91/structLIST.html#a5ac3b6223fcd1e736c37b9cdfbf0ca41">last</a>;
+<a name="l00075"></a>00075 } <a class="code" href="../../d8/d91/structLIST.html" title="Estrutura da lista em si.">LIST</a>;
+<a name="l00076"></a>00076 
+<a name="l00077"></a>00077 
+<a name="l00082"></a>00082 <span class="keywordtype">void</span> <a class="code" href="../../d7/d40/list_8c.html#a95e35bfe7f68f050c09e1d849f9058d4" title="Inicializa a lista para uso posterior.">ListCreate</a>(<a class="code" href="../../d8/d91/structLIST.html" title="Estrutura da lista em si.">LIST</a> *list);
+<a name="l00083"></a>00083 
+<a name="l00090"></a>00090 <span class="keywordtype">void</span> <a class="code" href="../../d7/d40/list_8c.html#a38747116958ffddf8f9b58c6174ecb68" title="Inicializa um comando (estrutura) para uso posterior.">initCommand</a>(<a class="code" href="../../dc/d56/structCOMMAND.html" title="Estrutura do comando.">COMMAND</a> *<a class="code" href="../../db/d62/structNODE.html#a0533e109ddfa13a74a990c716d7d80e3">cmd</a>);
+<a name="l00091"></a>00091 
+<a name="l00098"></a>00098 <span class="keywordtype">int</span> <a class="code" href="../../d7/d40/list_8c.html#a1a9c1d2d2a688c33ced99296b2e8f647" title="Verifica se uma lista está vazia.">ListIsEmpty</a>(<a class="code" href="../../d8/d91/structLIST.html" title="Estrutura da lista em si.">LIST</a> *list);
+<a name="l00099"></a>00099 
+<a name="l00117"></a>00117 <span class="keywordtype">int</span> <a class="code" href="../../d7/d40/list_8c.html#a11e56b0590057adefe3abdf5d4e26129" title="Insere um processo e/ou um comando na lista.">ListInsert</a>(<a class="code" href="../../d8/d91/structLIST.html" title="Estrutura da lista em si.">LIST</a> *list, <a class="code" href="../../dc/dd8/structPROCESS.html" title="Estrutura do processo.">PROCESS</a> *<a class="code" href="../../db/d62/structNODE.html#a9b06f9394c6eb2aea38ad5f5ae6914c0">proc</a>, <a class="code" href="../../dc/d56/structCOMMAND.html" title="Estrutura do comando.">COMMAND</a> *<a class="code" href="../../db/d62/structNODE.html#a0533e109ddfa13a74a990c716d7d80e3">cmd</a>);
+<a name="l00118"></a>00118 
+<a name="l00126"></a>00126 <span class="keywordtype">int</span> <a class="code" href="../../d7/d40/list_8c.html#aec794ee38aeff5304b00d9a1160e926a" title="Remove um processo da lista pelo seu ID.">ListRemoveByPid</a>(<a class="code" href="../../d8/d91/structLIST.html" title="Estrutura da lista em si.">LIST</a> *list, pid_t pid);
+<a name="l00127"></a>00127 
+<a name="l00132"></a>00132 <a class="code" href="../../dc/dd8/structPROCESS.html" title="Estrutura do processo.">PROCESS</a> *<a class="code" href="../../d7/d40/list_8c.html#aa2436206209aede711b864875bad0c1b" title="Retorna o processo que está rodando em foreground.">ListGetCurrentProcess</a>(<a class="code" href="../../d8/d91/structLIST.html" title="Estrutura da lista em si.">LIST</a> *list);
+<a name="l00133"></a>00133 
+<a name="l00138"></a>00138 <a class="code" href="../../dc/dd8/structPROCESS.html" title="Estrutura do processo.">PROCESS</a> * <a class="code" href="../../d7/d40/list_8c.html#ae0592de06d4710a0a0cd74e3088a3643" title="Busca e retorna o processo parado mais recente.">ListGetLastStopped</a>(<a class="code" href="../../d8/d91/structLIST.html" title="Estrutura da lista em si.">LIST</a> *list);
+<a name="l00139"></a>00139 
+<a name="l00146"></a>00146 <a class="code" href="../../dc/dd8/structPROCESS.html" title="Estrutura do processo.">PROCESS</a> * <a class="code" href="../../d7/d40/list_8c.html#aebbacf45337b97c8c8735777a91d6b84" title="Retorna um processo pelo seu id.">ListGetProcess</a>(<a class="code" href="../../d8/d91/structLIST.html" title="Estrutura da lista em si.">LIST</a> *list, pid_t pid);
+<a name="l00147"></a>00147 
+<a name="l00152"></a>00152 <span class="keywordtype">void</span> <a class="code" href="../../d7/d40/list_8c.html#a2f39c318d8184081132a71563e2ea964" title="Libera espaço alocado pela lista de comandos.">ListPurgeCmds</a>(<a class="code" href="../../d8/d91/structLIST.html" title="Estrutura da lista em si.">LIST</a> *list);
+<a name="l00153"></a>00153 
+<a name="l00154"></a>00154 <span class="preprocessor">#endif</span>
+</pre></div></div>
+</div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Tudo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Estruturas de dados</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Ficheiros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funções</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variáveis</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Definições de tipos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<hr class="footer"/><address class="footer"><small>Gerado em Wed Nov 16 2011 13:59:47 para Shell por&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

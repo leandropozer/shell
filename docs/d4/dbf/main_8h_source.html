@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>Shell: main.h Source File</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body onload='searchBox.OnSelectItem(0);'>
+<!-- Gerado por Doxygen 1.7.4 -->
+<script type="text/javascript"><!--
+var searchBox = new SearchBox("searchBox", "../../search",false,'Localizar');
+--></script>
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Shell</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="../../index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="../../annotated.html"><span>Estruturas&#160;de&#160;dados</span></a></li>
+      <li class="current"><a href="../../files.html"><span>Ficheiros</span></a></li>
+      <li id="searchli">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="../../search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Localizar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="../../files.html"><span>Lista&#160;de&#160;ficheiros</span></a></li>
+      <li><a href="../../globals.html"><span>Globais</span></a></li>
+    </ul>
+  </div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">main.h</div>  </div>
+</div>
+<div class="contents">
+<a href="../../d4/dbf/main_8h.html">Ir para a documentação deste ficheiro.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef _MAIN_H_</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define _MAIN_H_</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span><span class="preprocessor">#include &quot;<a class="code" href="../../da/d23/list_8h.html">list.h</a>&quot;</span>
+<a name="l00004"></a>00004 
+<a name="l00010"></a>00010 <span class="keywordtype">void</span> <a class="code" href="../../d0/d29/main_8c.html#a70749195adc0ab8c373020426dcf2800" title="Imprime o prompt na tela (formato copiado do gnome shell).">printPrompt</a>();
+<a name="l00011"></a>00011 
+<a name="l00018"></a>00018 <span class="keywordtype">void</span> <a class="code" href="../../d0/d29/main_8c.html#a57dae6bcf94a70cbe68aedc2a25f2286" title="Função executada quando usuário manda ctrl+c.">termination_handler</a>(<span class="keywordtype">int</span> signum);
+<a name="l00019"></a>00019 
+<a name="l00030"></a>00030 <span class="keywordtype">void</span> <a class="code" href="../../d0/d29/main_8c.html#ab973e3f6484d78c37b053e16cf56496b" title="Função executada quando um processo filho termina.">child_handler</a>(<span class="keywordtype">int</span> signum);
+<a name="l00031"></a>00031 
+<a name="l00038"></a>00038 <span class="keywordtype">void</span> <a class="code" href="../../d0/d29/main_8c.html#af3f53d75de0b7ce58a561531fb29f703" title="Função executada quando usuário manda ctrl+z.">sigtstop_handler</a>(<span class="keywordtype">int</span> signum);
+<a name="l00039"></a>00039 
+<a name="l00046"></a>00046 <span class="keywordtype">void</span> <a class="code" href="../../d0/d29/main_8c.html#a9f81a9a3690fcba7180fa860e0c2422f" title="Função que libera memória utilizada antes de terminar o programa.">free_memory</a>();
+<a name="l00047"></a>00047 
+<a name="l00048"></a><a class="code" href="../../d4/dbf/main_8h.html#a71055d1c243c56f7ae347570a4d775e6">00048</a> <span class="keywordtype">char</span> * <a class="code" href="../../d4/dbf/main_8h.html#a71055d1c243c56f7ae347570a4d775e6">userdir</a>;
+<a name="l00049"></a><a class="code" href="../../d4/dbf/main_8h.html#a9b20c006bd90a09e1465fb668700e81d">00049</a> <span class="keywordtype">char</span> * <a class="code" href="../../d4/dbf/main_8h.html#a9b20c006bd90a09e1465fb668700e81d">username</a>;
+<a name="l00050"></a><a class="code" href="../../d4/dbf/main_8h.html#a7858519d633b10b2a43ff6ca26ab3108">00050</a> <span class="keywordtype">char</span> <a class="code" href="../../d4/dbf/main_8h.html#a7858519d633b10b2a43ff6ca26ab3108">hostname</a>[256];
+<a name="l00051"></a><a class="code" href="../../d4/dbf/main_8h.html#a6288e33e5b5d31672f5afe3ddc500c23">00051</a> <span class="keywordtype">char</span> * <a class="code" href="../../d4/dbf/main_8h.html#a6288e33e5b5d31672f5afe3ddc500c23">cmdLine</a>;
+<a name="l00052"></a>00052 
+<a name="l00053"></a><a class="code" href="../../d4/dbf/main_8h.html#a506f1b99f121cd0f599bd2cffeed568c">00053</a> <a class="code" href="../../d9/d2e/structhistory.html" title="Lista simples para uso do comando builtin history.">HISTORY</a> *<a class="code" href="../../d4/dbf/main_8h.html#a506f1b99f121cd0f599bd2cffeed568c">history</a>;
+<a name="l00054"></a><a class="code" href="../../d4/dbf/main_8h.html#ad901e8de5538c17d7b770b9302274545">00054</a> <a class="code" href="../../d8/d91/structLIST.html" title="Estrutura da lista em si.">LIST</a> * <a class="code" href="../../d4/dbf/main_8h.html#ad901e8de5538c17d7b770b9302274545">cmdList</a>;
+<a name="l00055"></a><a class="code" href="../../d4/dbf/main_8h.html#ab2d0c9697430a22a7c353f09141e7a5b">00055</a> <a class="code" href="../../d8/d91/structLIST.html" title="Estrutura da lista em si.">LIST</a> * <a class="code" href="../../d4/dbf/main_8h.html#ab2d0c9697430a22a7c353f09141e7a5b">childs</a>;
+<a name="l00056"></a>00056 
+<a name="l00057"></a>00057 <span class="preprocessor">#endif</span>
+</pre></div></div>
+</div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Tudo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Estruturas de dados</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Ficheiros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funções</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variáveis</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Definições de tipos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<hr class="footer"/><address class="footer"><small>Gerado em Wed Nov 16 2011 13:59:47 para Shell por&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

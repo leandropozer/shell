@@ -32,7 +32,7 @@ Data:
 
 ==Características Não Implementadas (limitações)==
 
-	Na nossa shell, os seguintes tipos de comando não são possíveis:
+Na nossa shell, os seguintes tipos de comando não são possíveis:
 
     * Comando builtin rodando em background (sempre rodará em foreground).
     * Redirecionamento de entrada para comandos builtin (redirecionamento de saída implementado).

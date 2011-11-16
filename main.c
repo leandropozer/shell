@@ -68,7 +68,7 @@ int main (int argc, char **argv)
     /*Loop Principal */
     while (1)
     {
-        printPrompt(username, hostname);
+        printPrompt();
         cmdLine = readline();
         if(strcmp(cmdLine, "") != 0)
         {
@@ -176,7 +176,7 @@ int main (int argc, char **argv)
     return 0;
 }
 
-void printPrompt(char* username, char* hostname)
+void printPrompt()
 {
     char path[256];
     getcwd(path, 256);
@@ -224,7 +224,7 @@ void sigtstop_handler(int signum)
                 strcpy(process->status, "Stopped");
     }
     else
-        printPrompt(username, hostname);
+        printPrompt();
 }
 
 void free_memory()
