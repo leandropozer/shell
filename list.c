@@ -117,11 +117,7 @@ PROCESS * ListGetProcess(LIST *list, pid_t pid)
         while (aux != NULL)
         {
             if(aux->proc->pid == pid)
-            {
-                //aux->proc->isBackground = 1;
-                //strcpy(aux->proc->status, "Running");
                 return aux->proc;
-            }
             aux = aux->prev;
         }
     }

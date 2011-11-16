@@ -264,7 +264,8 @@ void echo(COMMAND *cmd)
     close(fd_out);
 }
 
-void about(COMMAND *cmd) {
+void about(COMMAND *cmd)
+{
     int fd_out;
     int fd_std = dup(STDOUT_FILENO);
     if(cmd->output_r)
